@@ -1,0 +1,25 @@
+export const ROUTES = {
+  home: '/',
+  dashboard: '/dashboard',
+  users: '/users',
+  merchants: '/merchants',
+  staff: '/staff',
+  services: '/services',
+  packages: '/packages',
+  bookings: '/bookings',
+  calendar: '/calendar',
+  payments: '/payments',
+  promotions: '/promotions',
+  reviews: '/reviews',
+  messaging: '/messaging',
+  notifications: '/notifications',
+  loyalty: '/loyalty',
+  media: '/media',
+  reports: '/reports',
+  settings: '/settings',
+  roles: '/roles',
+  auditLogs: '/audit-logs',
+  permissionDenied: '/permission-denied',
+} as const;
+
+export type RoutePath = (typeof ROUTES)[keyof typeof ROUTES];
