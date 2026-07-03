@@ -1,0 +1,24 @@
+---
+description: react-hook-form + Zod validation patterns
+globs: "src/features/**/components/**,src/features/**/types/**"
+alwaysApply: false
+---
+
+# Forms and Validation
+
+- **Always** use react-hook-form + `@hookform/resolvers/zod` (`zodResolver`) — no uncontrolled forms without RHF
+- **Never** write manual validation logic (regex checks, if/else field validation) outside Zod schemas
+
+## Schema placement
+
+- Zod schemas live in `features/<name>/types/` named `<Entity>Schema` (e.g. `BookingSchema`, `CreateStaffSchema`)
+- TypeScript type = `z.infer<typeof EntitySchema>` — never hand-write a separate interface duplicating the schema
+
+## Error handling
+
+- Surface submission errors via toast or inline field errors (`formState.errors`)
+- **Never** `console.log` form errors or fail silently
+
+## shadcn form fields
+
+- Compose with existing shadcn inputs from `src/shared/components/ui/` when available

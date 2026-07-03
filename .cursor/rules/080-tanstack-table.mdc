@@ -1,0 +1,24 @@
+---
+description: TanStack Table via shared DataTable wrapper
+globs: "src/features/**/*.tsx,src/shared/components/data-table/**"
+alwaysApply: false
+---
+
+# TanStack Table
+
+- **Always** use the shared `DataTable` wrapper in `src/shared/components/data-table/DataTable.tsx`
+- **Never** create raw `<table>` markup or one-off table implementations per feature
+
+## Pagination
+
+- **Server-side pagination by default** for lists with realistic growth: bookings, audit-logs, payments, users, merchants, notifications
+- Client-side pagination only for genuinely small, bounded lists (e.g. static config enums)
+
+## Column definitions
+
+- Column defs live in the **owning feature** (e.g. `features/booking-management/components/booking-columns.tsx`) — not in `shared/`
+- Pass columns + data as props to `DataTable<TData>`
+
+## Loading / empty states
+
+- Use TanStack Query loading state + shared `EmptyState` / `Skeleton` components from `src/shared/components/`

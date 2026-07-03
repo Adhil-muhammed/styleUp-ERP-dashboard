@@ -1,0 +1,26 @@
+---
+description: React Router lazy loading and route constants
+globs: "src/app/**,src/shared/config/routes.ts"
+alwaysApply: false
+---
+
+# Routing
+
+## Lazy loading
+
+- **Always** lazy-load feature pages via `React.lazy` in `src/app/lazy-pages.tsx`
+- Import from feature barrel: `import('@/features/booking-management').then(m => ({ default: m.BookingManagementPage }))`
+- **Never** eagerly import page components into `router.tsx`
+- Wrap lazy routes in `<Suspense fallback={<PageLoader />}>` (see `router.tsx`)
+
+## Route constants
+
+- **All** paths defined in `src/shared/config/routes.ts` as `ROUTES` — never inline string literals
+- Use `ROUTES.bookings`, `ROUTES.dashboard`, etc. in `<Link to>`, `navigate()`, and route definitions
+- New routes: add constant to `ROUTES`, lazy import in `lazy-pages.tsx`, register in `router.tsx` under `AppShell`
+
+## Layout
+
+- Protected routes nest under `AppShell` (`src/shared/components/layout/AppShell.tsx`) with `<Outlet />`
+- Index `/` redirects to `ROUTES.dashboard`
+- 404: catch-all `*` → `NotFoundPage`

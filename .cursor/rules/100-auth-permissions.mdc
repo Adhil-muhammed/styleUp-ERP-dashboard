@@ -1,0 +1,26 @@
+---
+description: CASL permissions, route guards, and permission key registry
+globs: "src/app/**,src/shared/hooks/use-permissions.ts,src/shared/config/permissions.ts,src/shared/lib/casl-*.ts"
+alwaysApply: false
+---
+
+# Auth and Permissions
+
+## Permission checks
+
+- **Always** use `usePermissions()` from `src/shared/hooks/use-permissions.ts` (wraps CASL `useAbility`)
+- **Never** hand-roll role string comparisons: `if (user.role === 'admin')` is forbidden
+- Use CASL `Can` component from `src/shared/lib/casl-context.tsx` for conditional UI when appropriate
+- Ability factory: `src/shared/lib/casl-ability.ts`; provider wired in `src/app/providers.tsx`
+
+## Route guards
+
+- Check permissions at **router level** (loader, wrapper route, or guard component in `src/app/`) — not just hiding buttons
+- A hidden UI element is **not** a security boundary
+- Permission-denied route: `ROUTES.permissionDenied` → `/permission-denied`
+
+## Permission keys
+
+- **Always** add new permission keys to `src/shared/config/permissions.ts`
+- **Never** use magic permission strings inline — reference `PERMISSIONS.bookings.view` etc.
+- Key format: `'feature:action'` (e.g. `'bookings:manage'`, `'audit-logs:view'`)

@@ -1,0 +1,27 @@
+---
+description: Tailwind v4 CSS-first theming and shadcn/ui usage
+globs: "**/*.{tsx,css}"
+alwaysApply: false
+---
+
+# Tailwind v4 + shadcn/ui
+
+## Theming
+
+- Tailwind v4 **CSS-first** — all design tokens go in `src/styles/globals.css` (`@import "tailwindcss"`, `@theme inline`, `:root` / `.dark` variables)
+- **Never** edit or create `tailwind.config.ts` for design tokens — it does not exist in this project
+- Use `tw-animate-css` for animations — **never** `tailwindcss-animate`
+- Dark mode: `.dark` class on `<html>` via `src/shared/lib/theme-provider.tsx` — never a separate dark-specific component variant
+
+## shadcn components
+
+- Style preset: **radix-nova**, base color **neutral**, CSS variables enabled
+- **Always** check `src/shared/components/ui/` before hand-rolling a primitive (Button, Input, Dialog, etc.)
+- Add new shadcn components via CLI: `pnpm dlx shadcn@latest add <component>` — aliases point to `@/shared/components/ui`
+- Merge classes with `cn()` from `src/shared/lib/utils.ts`
+
+## Tailwind classes
+
+- Prefer semantic tokens (`bg-background`, `text-foreground`, `border-border`) over raw colors
+- **Never** use arbitrary values (`w-[137px]`, `top-[13px]`) unless no token exists — flag when unavoidable
+- White-label prep: commented `--merchant-*` overrides under `[data-merchant-theme]` in globals.css — do not implement runtime theming logic without explicit request

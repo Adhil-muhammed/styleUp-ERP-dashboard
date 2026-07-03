@@ -1,0 +1,15 @@
+---
+description: Hard guardrails — never modify or suggest these
+alwaysApply: true
+---
+
+# Do Not Touch
+
+- **Never** modify `styleup-backend` or suggest cross-repo changes from this codebase
+- **Never** add Redux, MobX, Jotai, or any state library beyond **Zustand + TanStack Query** without explicit user confirmation
+- **Never** downgrade Tailwind to v3, create `tailwind.config.ts` for tokens, or reintroduce `tailwindcss-animate` (use `tw-animate-css`)
+- **Never** commit `.env`, `.env.local`, or realistic-looking secret values — even as examples
+- **Never** create a legacy root-level `.cursorrules` file (conflicts with `.cursor/rules/*.mdc`)
+- **Never** use `npm` or `yarn` — pnpm only
+- **Never** implement mock/sample data or wire real API calls unless explicitly requested
+- **Never** bypass CASL with raw role string checks (`user.role === 'admin'`)

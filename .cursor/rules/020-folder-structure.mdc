@@ -1,0 +1,37 @@
+---
+description: Feature-based folder structure and placement rules
+alwaysApply: true
+---
+
+# Folder Structure
+
+## Layout
+
+```
+src/
+├── app/                    # App shell, router, providers, lazy-pages
+├── features/<kebab-name>/  # One folder per module (19 total)
+│   ├── components/
+│   ├── hooks/
+│   ├── api/
+│   ├── types/
+│   └── index.ts            # Barrel — public API only
+├── shared/
+│   ├── components/         # ui/, layout/, data-table/, charts/, etc.
+│   ├── hooks/
+│   ├── lib/                # axios, query-client, utils, merchant-store, etc.
+│   ├── config/             # env, routes, permissions, feature-flags
+│   └── types/
+├── locales/en/ + locales/ml/   # i18n namespace JSON per feature + common
+├── styles/globals.css      # Tailwind v4 + shadcn theme tokens
+└── assets/
+```
+
+## Rules
+
+- **Always** create new features under `src/features/<kebab-name>/` with all five subfolders + `index.ts`
+- **Never** dump feature-specific code into `shared/` unless genuinely cross-feature (layout, DataTable wrapper, shadcn ui)
+- shadcn components live at `src/shared/components/ui/` — not `src/components/ui/`
+- Barrel `index.ts` re-exports **public API only** (page components, hooks consumed by other features) — not every internal file
+- **Never** add new top-level `src/` folders without explicit user confirmation — ask first
+- App wiring stays in `src/app/` (`router.tsx`, `lazy-pages.tsx`, `providers.tsx`)

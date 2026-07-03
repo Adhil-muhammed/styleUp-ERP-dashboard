@@ -1,0 +1,19 @@
+---
+description: React component patterns and JSX rules
+globs: "**/*.tsx"
+alwaysApply: false
+---
+
+# React Components
+
+- **Function components only** — no class components except `src/shared/components/error-boundary/ErrorBoundary.tsx`
+- Props: define `interface <ComponentName>Props` — no inline object types for components with 3+ props
+- Co-locate component-only types in the same file if not reused; move to `features/<name>/types/` when shared within the feature
+- **Never** put business logic inside JSX — extract to hooks or plain functions above the component
+- List rendering: always use a stable `key` (`id` field) — never array index unless the list is provably static and never reordered
+- Keep components focused — split when a file exceeds ~150 lines or mixes data-fetching with heavy UI
+
+## Imports
+
+- Use `@/` alias for all internal imports
+- Import shadcn primitives from `@/shared/components/ui/*`

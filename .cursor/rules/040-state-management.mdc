@@ -1,0 +1,24 @@
+---
+description: TanStack Query vs Zustand state ownership
+globs: "src/features/**/*.{ts,tsx},src/shared/**/*.{ts,tsx}"
+alwaysApply: false
+---
+
+# State Management
+
+## Server state → TanStack Query only
+
+- All API-backed data lives in TanStack Query (`useQuery`, `useMutation`)
+- **Never** mirror server data into Zustand or component `useState`
+- **Never** use `useState` for data TanStack Query already owns
+
+## Client state → Zustand
+
+- UI state and cross-cutting client state only: sidebar open/closed, active merchant, theme preference
+- Follow existing pattern in `src/shared/lib/merchant-store.ts` + `src/shared/lib/merchant-context.tsx`
+- QueryClient singleton: `src/shared/lib/query-client.ts`
+
+## Prop drilling
+
+- **Never** prop-drill beyond 2 levels — lift to React context or Zustand instead
+- Feature-local UI state may use `useState` when it does not belong in global store

@@ -1,0 +1,43 @@
+---
+description: StyleUp ERP project context, domain modules, and non-negotiables
+alwaysApply: true
+---
+
+# StyleUp ERP — Project Context
+
+StyleUp ERP is the admin dashboard for **StyleQuest**, a salon and beauty booking platform based in Kochi, Kerala. The backend is a separate NestJS service (`styleup-backend`). Never suggest backend code changes from this repo — only flag when an API contract change is needed.
+
+## Stack
+
+Vite 8, React 19, TypeScript strict, Tailwind v4 (CSS-first), shadcn/ui (radix-nova), TanStack Query/Table/Virtual, Zustand, react-router-dom, CASL, react-hook-form + Zod, FullCalendar 6.1.21, socket.io-client, i18next. Package manager: **pnpm only**.
+
+## 19 Modules
+
+| Folder | Purpose |
+|--------|---------|
+| `dashboard` | Overview KPIs and quick actions for operators |
+| `user-management` | Platform end-user accounts (customers) |
+| `merchant-management` | Salon/merchant onboarding and profiles |
+| `staff-management` | Staff profiles, roles, and assignments per merchant |
+| `service-catalog` | Individual services offered (cut, color, etc.) |
+| `package-management` | Bundled service packages and pricing |
+| `booking-management` | Appointment lifecycle (create, status, cancel) |
+| `calendar-scheduling` | Staff/resource calendar and availability |
+| `payments` | Transactions, refunds, and payment status |
+| `promotions` | Discounts, coupons, and campaigns |
+| `reviews` | Customer reviews and moderation |
+| `messaging` | In-app chat between users and merchants |
+| `notifications` | Push/email/SMS notification templates and logs |
+| `loyalty` | Points, tiers, and reward programs |
+| `media-library` | Shared images and assets for merchants |
+| `reports-analytics` | Business reports and analytics dashboards |
+| `system-configuration` | Global platform settings |
+| `role-permission` | RBAC roles and permission assignments |
+| `audit-logs` | Immutable admin action audit trail |
+
+## Non-negotiables
+
+- TypeScript **strict mode** always (`tsconfig.app.json`)
+- No `any` without an inline justification comment
+- **pnpm only** — never suggest npm/yarn commands or npm lockfiles
+- Import alias `@/` maps to `src/`

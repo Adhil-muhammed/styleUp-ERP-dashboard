@@ -1,0 +1,25 @@
+---
+description: TypeScript strict mode conventions
+globs: "**/*.{ts,tsx}"
+alwaysApply: false
+---
+
+# TypeScript Strict
+
+- No implicit `any` — enable strict checks; `tsconfig.app.json` has `"strict": true`
+- No non-null assertions (`!`) unless justified with an inline comment explaining why
+- Prefer type inference inside function bodies; **always** type function params and return values at boundaries
+- Use discriminated unions for async/UI state — e.g. `status: 'idle' | 'loading' | 'error' | 'success'` — never parallel `isLoading` + `isError` + `isSuccess` booleans
+- Derive types from Zod schemas via `z.infer<typeof Schema>` — do not hand-write duplicate interfaces
+
+## Exports
+
+- **Named exports** everywhere except:
+  - Page route components (lazy-loaded from feature barrels)
+  - `src/app/App.tsx` (default export)
+  - `vite.config.ts` (default export)
+- Never use `export default` for hooks, utils, API functions, or shared components
+
+## `any` escape hatch
+
+Only with inline comment: `// any: <reason>`

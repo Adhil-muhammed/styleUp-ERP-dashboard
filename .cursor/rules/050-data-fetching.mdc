@@ -1,0 +1,32 @@
+---
+description: TanStack Query patterns, query keys, and mutations
+globs: "src/features/**/api/**,src/features/**/hooks/use-*-queries.ts"
+alwaysApply: false
+---
+
+# Data Fetching
+
+## API placement
+
+- All server calls go through `src/features/<name>/api/` — **never** inline `fetch()` or `axios` in components or hooks
+- Hooks in `hooks/use-<feature>-queries.ts` wrap TanStack Query — they call api/ functions, not axios directly
+
+## Query key convention
+
+Use consistent array keys: `[featureName, scope, ...params]`
+
+```typescript
+['booking-management', 'list', filters]
+['booking-management', 'detail', bookingId]
+['audit-logs', 'list', { page, pageSize }]
+['merchant-management', 'list', { search, status }]
+```
+
+- Feature name matches folder name (kebab-case string)
+- `'list'` / `'detail'` for scope; filters/objects as trailing elements
+
+## Mutations
+
+- Always `invalidateQueries` for relevant keys on success
+- Never manually patch cache unless implementing a documented optimistic update
+- Use built-in Query states (`isPending`, `isError`, `isSuccess`, `data`, `error`) — no parallel manual `isLoading` booleans

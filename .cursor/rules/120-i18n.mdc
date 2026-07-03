@@ -1,0 +1,30 @@
+---
+description: react-i18next namespaces and translation key rules
+globs: "src/locales/**,src/shared/lib/i18n.ts,**/*.tsx"
+alwaysApply: false
+---
+
+# Internationalization
+
+- **All** user-facing strings go through react-i18next — no hardcoded English in components
+- Init: `src/shared/lib/i18n.ts`; supported locales: `en`, `ml`
+- Use `useTranslation('<namespace>')` with the feature namespace
+
+## Namespaces
+
+- One JSON file per feature matching folder name exactly: `booking-management.json`, `audit-logs.json`, etc.
+- Shared strings: `common.json`
+- Files live in both `src/locales/en/` and `src/locales/ml/`
+
+## Adding keys
+
+- **Always** add new keys to **both** `en/` and `ml/` files simultaneously
+- `ml/` value may be empty string or `TODO` placeholder initially — never skip the file
+- Key naming: nested by context — `list.title`, `form.submit`, `errors.required`
+
+## Example
+
+```tsx
+const { t } = useTranslation('booking-management');
+return <h1>{t('list.title')}</h1>;
+```

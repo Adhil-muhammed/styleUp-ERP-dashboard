@@ -1,0 +1,23 @@
+---
+description: FullCalendar scheduling conventions for calendar-scheduling feature
+globs: "src/features/calendar-scheduling/**"
+alwaysApply: false
+---
+
+# Calendar and Scheduling
+
+## FullCalendar setup
+
+- Pinned version: `@fullcalendar/react@6.1.21` with `@fullcalendar/core`, `daygrid`, `timegrid`, `resource-timeline`, `interaction`
+- **Default view:** `resource-timeline` for staff/multi-resource scheduling UI
+- Before adding new `@fullcalendar/*` packages: verify peer dependency range includes React 19 and matches `~6.1.21` line
+
+## Data flow
+
+- Calendar event data **always** flows through TanStack Query hooks in `calendar-scheduling/hooks/`
+- FullCalendar components **never** fetch directly — receive events as props from query results
+- API functions in `calendar-scheduling/api/` use `apiClient` from `src/shared/lib/axios.ts`
+
+## Feature placement
+
+- All calendar UI, hooks, types, and API live under `src/features/calendar-scheduling/` — do not split across other features

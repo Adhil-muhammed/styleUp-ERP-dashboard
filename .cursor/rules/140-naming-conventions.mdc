@@ -1,0 +1,35 @@
+---
+description: File, variable, and handler naming conventions
+globs: "src/**/*.{ts,tsx}"
+alwaysApply: false
+---
+
+# Naming Conventions
+
+## Files
+
+- **kebab-case** for non-component files: `use-booking-queries.ts`, `booking-api.ts`, `merchant-store.ts`
+- **PascalCase** for component files: `BookingCard.tsx`, `DashboardPage.tsx`
+- Feature folder names: kebab-case matching module name (`calendar-scheduling`, `audit-logs`)
+
+## Variables and booleans
+
+- Booleans prefixed `is`, `has`, or `should`: `isLoading`, `hasPermission`, `shouldRefetch`
+- **Never** bare adjectives: `loading`, `open`, `valid` as boolean names
+
+## Functions and handlers
+
+- Internal event handlers: `handle` prefix — `handleSubmit`, `handleDelete`, `handleFilterChange`
+- Callback props passed to children: `on` prefix — `onSubmit`, `onClose`, `onSelect`
+
+## Types and schemas
+
+- Props interface: `<ComponentName>Props`
+- Zod schema: `<Entity>Schema` (e.g. `BookingSchema`)
+- Inferred type: `<Entity>` via `z.infer<typeof EntitySchema>`
+- API params: reuse `ApiListParams` from `src/shared/types/api.ts`
+
+## Query hooks
+
+- File: `use-<feature>-queries.ts`
+- Hook names: `use<Feature>ListQuery`, `use<Feature>Mutation`, `use<Feature>DetailQuery`

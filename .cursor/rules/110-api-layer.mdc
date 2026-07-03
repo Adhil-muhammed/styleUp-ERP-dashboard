@@ -1,0 +1,34 @@
+---
+description: Axios API layer conventions and naming
+globs: "src/features/**/api/**,src/shared/lib/axios.ts"
+alwaysApply: false
+---
+
+# API Layer
+
+## HTTP client
+
+- **Only** use `apiClient` from `src/shared/lib/axios.ts` — no raw `fetch()` calls anywhere
+- Auth token attachment and refresh handled by interceptors in `axios.ts` — API functions **never** manually set `Authorization` headers
+
+## File placement
+
+- Feature API functions live in `src/features/<name>/api/<feature>-api.ts`
+- Export typed async functions — components and hooks import from here, not axios directly
+
+## Naming convention (verb-first)
+
+```typescript
+getBookings(params: ApiListParams)
+getBookingById(id: string)
+createBooking(data: CreateBookingInput)
+updateBookingStatus(id: string, status: BookingStatus)
+deleteBooking(id: string)
+```
+
+- `get*` for reads, `create*` for POST, `update*` for PATCH/PUT, `delete*` for DELETE
+- Return typed promises — use shared types from `src/shared/types/api.ts` and feature `types/`
+
+## Environment
+
+- Base URL from `src/shared/config/env.ts` (`VITE_API_URL`) — never hardcode URLs

@@ -1,0 +1,40 @@
+---
+description: Conventional commit message format for StyleUp ERP
+alwaysApply: false
+---
+
+# Git Commits
+
+Use **Conventional Commits** format:
+
+```
+<type>(<scope>): <description>
+```
+
+## Types
+
+- `feat` — new feature or user-facing capability
+- `fix` — bug fix
+- `chore` — tooling, deps, config (no production code change)
+- `refactor` — code change that neither fixes nor adds feature
+- `docs` — documentation only
+
+## Scope
+
+- Match feature folder name when change is feature-specific: `feat(booking-management): add status filter`
+- Omit scope or use `shared`, `app`, `config` for cross-cutting changes: `chore(deps): pin fullcalendar 6.1.21`
+- **Never** scope as `backend` or `styleup-backend` from this repo
+
+## Body (optional)
+
+- Explain **why**, not what — the diff shows what changed
+- Reference issue IDs when applicable
+
+## Examples
+
+```
+feat(calendar-scheduling): add resource-timeline view shell
+fix(payments): correct query key invalidation after refund
+chore: add cursor rules for data fetching
+refactor(shared): extract DataTable column helper
+```
