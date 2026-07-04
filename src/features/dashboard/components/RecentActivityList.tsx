@@ -2,7 +2,7 @@ import { formatDistanceToNow } from 'date-fns';
 import type React from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { TruncatedText } from '@/features/dashboard/components/TruncatedText';
+import { TruncatedText } from '@/shared/components/text/TruncatedText';
 import { formatInr } from '@/features/dashboard/lib/formatters';
 import type {
   ActivityItemMap,
@@ -151,6 +151,26 @@ function AlertRow({ item }: { item: SystemAlert }): React.ReactElement {
   );
 }
 
+export function renderActivityCard<T extends ActivityTab>(
+  tab: T,
+  item: ActivityItemMap[T],
+): React.ReactElement {
+  switch (tab) {
+    case 'bookings':
+      return <BookingRow item={item as RecentBooking} />;
+    case 'registrations':
+      return <RegistrationRow item={item as RecentRegistration} />;
+    case 'reviews':
+      return <ReviewRow item={item as RecentReview} />;
+    case 'refunds':
+      return <RefundRow item={item as RecentRefund} />;
+    case 'alerts':
+      return <AlertRow item={item as SystemAlert} />;
+    default:
+      return <div />;
+  }
+}
+
 export function RecentActivityList<T extends ActivityTab>({
   tab,
   items,
@@ -160,22 +180,9 @@ export function RecentActivityList<T extends ActivityTab>({
       className={cn('max-h-64 overflow-y-auto pr-1 sm:max-h-80')}
       data-testid={`activity-list-${tab}`}
     >
-      {items.map((item) => {
-        switch (tab) {
-          case 'bookings':
-            return <BookingRow key={item.id} item={item as RecentBooking} />;
-          case 'registrations':
-            return <RegistrationRow key={item.id} item={item as RecentRegistration} />;
-          case 'reviews':
-            return <ReviewRow key={item.id} item={item as RecentReview} />;
-          case 'refunds':
-            return <RefundRow key={item.id} item={item as RecentRefund} />;
-          case 'alerts':
-            return <AlertRow key={item.id} item={item as SystemAlert} />;
-          default:
-            return null;
-        }
-      })}
+      {items.map((item) => (
+        <div key={item.id}>{renderActivityCard(tab, item)}</div>
+      ))}
     </div>
   );
 }

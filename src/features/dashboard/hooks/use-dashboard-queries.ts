@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query';
+import { keepPreviousData, useQuery } from '@tanstack/react-query';
 
 import {
   getBookingStatusChart,
@@ -72,5 +72,6 @@ export function useDashboardActivityQuery<T extends ActivityTab>(
   return useQuery({
     queryKey: ['dashboard', 'activity', tab, params],
     queryFn: () => getDashboardActivity(tab, params),
+    placeholderData: keepPreviousData,
   });
 }

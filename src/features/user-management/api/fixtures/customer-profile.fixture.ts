@@ -1,0 +1,100 @@
+import type { CustomerListItem } from '@/features/user-management/types/customer';
+import type { CustomerProfile } from '@/features/user-management/types/customer-profile';
+
+export const customerProfilesFixture: Record<string, CustomerProfile> = {
+  'usr-001': {
+    id: 'usr-001',
+    name: 'Ananya Nair',
+    email: 'ananya.nair@email.com',
+    phone: '+91 98470 12345',
+    country: 'India',
+    xp: 4250,
+    level: 8,
+    status: 'active',
+    lastLoginAt: '2026-07-04T09:15:00Z',
+    joinDate: '2024-03-12T00:00:00Z',
+    totalBookings: 34,
+    totalSpent: 48500,
+    reviewCount: 12,
+    loyaltyPoints: 850,
+  },
+  'usr-002': {
+    id: 'usr-002',
+    name: 'Rahul Menon',
+    email: 'rahul.menon@email.com',
+    phone: '+91 98471 23456',
+    country: 'India',
+    xp: 1890,
+    level: 4,
+    status: 'active',
+    lastLoginAt: '2026-07-03T18:42:00Z',
+    joinDate: '2025-01-08T00:00:00Z',
+    totalBookings: 11,
+    totalSpent: 15200,
+    reviewCount: 4,
+    loyaltyPoints: 220,
+  },
+  'usr-003': {
+    id: 'usr-003',
+    name: 'Priya Thomas',
+    email: 'priya.thomas@email.com',
+    phone: '+91 98472 34567',
+    country: 'India',
+    xp: 7620,
+    level: 12,
+    status: 'active',
+    lastLoginAt: '2026-07-04T11:30:00Z',
+    joinDate: '2023-06-20T00:00:00Z',
+    totalBookings: 58,
+    totalSpent: 92000,
+    reviewCount: 22,
+    loyaltyPoints: 1450,
+  },
+  'usr-004': {
+    id: 'usr-004',
+    name: 'Arjun Pillai',
+    email: 'arjun.pillai@email.com',
+    phone: '+91 98473 45678',
+    country: 'India',
+    xp: 980,
+    level: 2,
+    status: 'pending',
+    lastLoginAt: null,
+    joinDate: '2026-06-28T00:00:00Z',
+    totalBookings: 0,
+    totalSpent: 0,
+    reviewCount: 0,
+    loyaltyPoints: 0,
+  },
+  'usr-005': {
+    id: 'usr-005',
+    name: 'Meera Krishnan',
+    email: 'meera.krishnan@email.com',
+    phone: '+91 98474 56789',
+    country: 'India',
+    xp: 3100,
+    level: 6,
+    status: 'suspended',
+    lastLoginAt: '2026-06-20T14:00:00Z',
+    joinDate: '2024-11-05T00:00:00Z',
+    totalBookings: 19,
+    totalSpent: 28400,
+    reviewCount: 7,
+    loyaltyPoints: 410,
+  },
+};
+
+export function getProfileForCustomer(id: string, listItem: CustomerListItem): CustomerProfile {
+  const existing = customerProfilesFixture[id];
+  if (existing) {
+    return { ...existing, ...listItem };
+  }
+  return {
+    ...listItem,
+    joinDate: '2025-06-01T00:00:00Z',
+    totalBookings: Math.floor(listItem.xp / 100),
+    totalSpent: listItem.xp * 10,
+    reviewCount: Math.floor(listItem.level / 2),
+    loyaltyPoints: listItem.level * 50,
+  };
+}

@@ -1,1 +1,159 @@
-{}
+{
+  "page": {
+    "title": "ഉപയോക്തൃ നിയന്ത്രണം",
+    "subtitle": "പ്ലാറ്റ്‌ഫോം ഉപഭോക്തൃ അക്കൗണ്ടുകൾ, പ്രൊഫൈലുകൾ, ആക്സസ് നിയന്ത്രിക്കുക."
+  },
+  "list": {
+    "searchPlaceholder": "പേര്, ഇമെയിൽ, ഫോൺ എന്നിവ കൊണ്ട് തിരയുക…",
+    "filterAll": "എല്ലാ സ്റ്റാറ്റസുകളും",
+    "neverLoggedIn": "ഒരിക്കലും"
+  },
+  "columns": {
+    "name": "പേര്",
+    "email": "ഇമെയിൽ",
+    "phone": "ഫോൺ",
+    "country": "രാജ്യം",
+    "xp": "XP",
+    "level": "ലെവൽ",
+    "status": "സ്റ്റാറ്റസ്",
+    "lastLogin": "അവസാന ലോഗിൻ",
+    "actions": "പ്രവർത്തനങ്ങൾ"
+  },
+  "status": {
+    "active": "സജീവം",
+    "suspended": "സസ്പെൻഡ്",
+    "pending": "തീർപ്പാക്കാത്ത"
+  },
+  "actions": {
+    "menu": "Row actions",
+    "view": "കാണുക",
+    "edit": "എഡിറ്റ്",
+    "suspend": "സസ്പെൻഡ്",
+    "activate": "സജീവമാക്കുക",
+    "forceLogout": "Force Logout",
+    "resetPassword": "Reset Password",
+    "resetPasswordSent": "Reset Sent",
+    "delete": "ഇല്ലാതാക്കുക"
+  },
+  "confirm": {
+    "cancel": "റദ്ദാക്കുക",
+    "suspend": {
+      "title": "Suspend customer?",
+      "description": "This will suspend {{name}} and prevent them from accessing the platform."
+    },
+    "forceLogout": {
+      "title": "Force logout?",
+      "description": "This will immediately end all active sessions for {{name}}."
+    },
+    "delete": {
+      "title": "Delete customer?",
+      "description": "This will permanently delete {{name}}. This action cannot be undone."
+    }
+  },
+  "form": {
+    "save": "Save changes"
+  },
+  "profile": {
+    "backToList": "Back to customers"
+  },
+  "tabs": {
+    "overview": "Overview",
+    "bookings": "Bookings",
+    "payments": "Payments",
+    "reviews": "Reviews",
+    "notifications": "Notifications",
+    "loyalty": "Loyalty",
+    "audit-logs": "Audit Logs"
+  },
+  "overview": {
+    "profileDetails": "Profile Details",
+    "joinDate": "Joined",
+    "lastLogin": "Last login",
+    "stats": {
+      "xp": "Experience Points",
+      "level": "Level",
+      "bookings": "Total Bookings",
+      "spent": "Total Spent",
+      "reviews": "Reviews"
+    }
+  },
+  "bookings": {
+    "searchPlaceholder": "Search bookings…",
+    "columns": {
+      "shop": "Shop",
+      "service": "Service",
+      "status": "Status",
+      "scheduled": "Scheduled",
+      "amount": "Amount"
+    }
+  },
+  "payments": {
+    "searchPlaceholder": "Search payments…",
+    "columns": {
+      "amount": "Amount",
+      "method": "Method",
+      "status": "Status",
+      "paidAt": "Paid At"
+    }
+  },
+  "reviews": {
+    "searchPlaceholder": "Search reviews…",
+    "columns": {
+      "shop": "Shop",
+      "rating": "Rating",
+      "comment": "Comment",
+      "date": "Date"
+    }
+  },
+  "notifications": {
+    "searchPlaceholder": "Search notifications…",
+    "columns": {
+      "channel": "Channel",
+      "title": "Title",
+      "status": "Status",
+      "sentAt": "Sent At"
+    }
+  },
+  "loyalty": {
+    "searchPlaceholder": "Search loyalty entries…",
+    "columns": {
+      "type": "Type",
+      "points": "Points",
+      "description": "Description",
+      "date": "Date"
+    },
+    "type": {
+      "earn": "Earned",
+      "redeem": "Redeemed"
+    }
+  },
+  "auditLogs": {
+    "searchPlaceholder": "Search audit logs…",
+    "columns": {
+      "action": "Action",
+      "actor": "Actor",
+      "date": "Date"
+    }
+  },
+  "pagination": {
+    "previous": "Previous",
+    "next": "Next",
+    "page": "Page {{current}} of {{total}}",
+    "rowsPerPage": "Rows per page"
+  },
+  "empty": {
+    "list": "No customers found.",
+    "bookings": "No bookings for this customer.",
+    "payments": "No payments for this customer.",
+    "reviews": "No reviews for this customer.",
+    "notifications": "No notifications for this customer.",
+    "loyalty": "No loyalty activity for this customer.",
+    "auditLogs": "No audit logs for this customer."
+  },
+  "errors": {
+    "nameRequired": "Name is required.",
+    "emailInvalid": "Enter a valid email address.",
+    "phoneRequired": "Phone number is required.",
+    "customerNotFound": "Customer not found."
+  }
+}

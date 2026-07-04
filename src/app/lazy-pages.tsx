@@ -6,6 +6,9 @@ export const DashboardPage = lazy(() =>
 export const UserManagementPage = lazy(() =>
   import('@/features/user-management').then((module) => ({ default: module.UserManagementPage })),
 );
+export const CustomerProfilePage = lazy(() =>
+  import('@/features/user-management').then((module) => ({ default: module.CustomerProfilePage })),
+);
 export const MerchantManagementPage = lazy(() =>
   import('@/features/merchant-management').then((module) => ({
     default: module.MerchantManagementPage,

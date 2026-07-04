@@ -30,5 +30,8 @@
       "settings": "System Configuration",
       "roles": "Role & Permission"
     }
+  },
+  "errors": {
+    "loadFailed": "Failed to load data."
   }
 }

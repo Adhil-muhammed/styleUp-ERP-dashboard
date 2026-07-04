@@ -9,7 +9,7 @@
  * - GET /dashboard/charts/top-shops
  * - GET /dashboard/charts/customer-growth
  * - GET /dashboard/charts/booking-status
- * - GET /dashboard/activity/:tab?page&pageSize
+ * - GET /dashboard/activity/:tab?page&pageSize&search&status|type|severity
  */
 import {
   bookingStatusFixture,
@@ -39,7 +39,86 @@ import type {
 import type { DashboardKpis } from '@/features/dashboard/types/dashboard-kpis';
 
 const DEFAULT_PAGE = 1;
-const DEFAULT_PAGE_SIZE = 10;
+const DEFAULT_PAGE_SIZE = 5;
+
+function matchesSearch(value: string, query: string): boolean {
+  return value.toLowerCase().includes(query.toLowerCase());
+}
+
+function filterActivityItems<T extends ActivityTab>(
+  tab: T,
+  items: ActivityItemMap[T][],
+  params: DashboardActivityParams,
+): ActivityItemMap[T][] {
+  const search = params.search?.trim();
+  let filtered = items;
+
+  if (search) {
+    filtered = filtered.filter((item) => {
+      switch (tab) {
+        case 'bookings': {
+          const booking = item as ActivityItemMap['bookings'];
+          return (
+            matchesSearch(booking.customerName, search) ||
+            matchesSearch(booking.shopName, search) ||
+            matchesSearch(booking.serviceName, search)
+          );
+        }
+        case 'registrations': {
+          const registration = item as ActivityItemMap['registrations'];
+          return (
+            matchesSearch(registration.name, search) ||
+            matchesSearch(registration.email, search)
+          );
+        }
+        case 'reviews': {
+          const review = item as ActivityItemMap['reviews'];
+          return (
+            matchesSearch(review.customerName, search) ||
+            matchesSearch(review.shopName, search) ||
+            matchesSearch(review.comment, search)
+          );
+        }
+        case 'refunds': {
+          const refund = item as ActivityItemMap['refunds'];
+          return (
+            matchesSearch(refund.customerName, search) ||
+            matchesSearch(refund.bookingId, search)
+          );
+        }
+        case 'alerts': {
+          const alert = item as ActivityItemMap['alerts'];
+          return matchesSearch(alert.message, search);
+        }
+        default:
+          return true;
+      }
+    });
+  }
+
+  if (params.status && (tab === 'bookings' || tab === 'refunds')) {
+    filtered = filtered.filter((item) => {
+      if (tab === 'bookings') {
+        return (item as ActivityItemMap['bookings']).status === params.status;
+      }
+      return (item as ActivityItemMap['refunds']).status === params.status;
+    });
+  }
+
+  if (params.type && tab === 'registrations') {
+    filtered = filtered.filter(
+      (item) => (item as ActivityItemMap['registrations']).type === params.type,
+    );
+  }
+
+  if (params.severity && tab === 'alerts') {
+    filtered = filtered.filter(
+      (item) => (item as ActivityItemMap['alerts']).severity === params.severity,
+    );
+  }
+
+  return filtered;
+}
 
 function paginate<T>(
   items: T[],
@@ -94,6 +173,7 @@ export function getDashboardActivity<T extends ActivityTab>(
   const page = params.page ?? DEFAULT_PAGE;
   const pageSize = params.pageSize ?? DEFAULT_PAGE_SIZE;
   const items = activityFixtures[tab] as ActivityItemMap[T][];
+  const filtered = filterActivityItems(tab, items, params);
 
-  return Promise.resolve(paginate(items, page, pageSize) as DashboardActivityResponse<T>);
+  return Promise.resolve(paginate(filtered, page, pageSize) as DashboardActivityResponse<T>);
 }

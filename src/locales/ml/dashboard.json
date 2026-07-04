@@ -58,6 +58,14 @@
   "activity": {
     "title": "Recent Activity",
     "loadMore": "Load more",
+    "searchPlaceholder": "തിരയുക...",
+    "filterAll": "എല്ലാം",
+    "pagination": {
+      "previous": "മുൻപത്തെ",
+      "next": "അടുത്തത്",
+      "page": "പേജ് {{current}} / {{total}}",
+      "rowsPerPage": "ഓരോ പേജിലും വരികൾ"
+    },
     "tabs": {
       "bookings": "Latest Bookings",
       "registrations": "Recent Registrations",

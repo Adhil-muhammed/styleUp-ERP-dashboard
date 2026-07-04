@@ -6,6 +6,7 @@ import {
   AuditLogsPage,
   BookingManagementPage,
   CalendarSchedulingPage,
+  CustomerProfilePage,
   DashboardPage,
   LoyaltyPage,
   MediaLibraryPage,
@@ -27,7 +28,9 @@ import { NotFoundPage } from '@/app/pages/NotFoundPage';
 import { PermissionDeniedPage } from '@/app/pages/PermissionDeniedPage';
 import { AppShell } from '@/shared/components/layout/AppShell';
 import { PageLoader } from '@/shared/components/loading/PageLoader';
+import { PERMISSIONS } from '@/shared/config/permissions';
 import { ROUTES } from '@/shared/config/routes';
+import { RequirePermission } from '@/app/guards/RequirePermission';
 
 function withSuspense(element: React.ReactElement): React.ReactElement {
   return <Suspense fallback={<PageLoader />}>{element}</Suspense>;
@@ -40,7 +43,22 @@ export const router = createBrowserRouter([
     children: [
       { index: true, element: <Navigate to={ROUTES.dashboard} replace /> },
       { path: ROUTES.dashboard, element: withSuspense(<DashboardPage />) },
-      { path: ROUTES.users, element: withSuspense(<UserManagementPage />) },
+      {
+        path: ROUTES.users,
+        element: withSuspense(
+          <RequirePermission action="view" subject={PERMISSIONS.users.view}>
+            <UserManagementPage />
+          </RequirePermission>,
+        ),
+      },
+      {
+        path: ROUTES.userDetail,
+        element: withSuspense(
+          <RequirePermission action="view" subject={PERMISSIONS.users.view}>
+            <CustomerProfilePage />
+          </RequirePermission>,
+        ),
+      },
       { path: ROUTES.merchants, element: withSuspense(<MerchantManagementPage />) },
       { path: ROUTES.staff, element: withSuspense(<StaffManagementPage />) },
       { path: ROUTES.services, element: withSuspense(<ServiceCatalogPage />) },

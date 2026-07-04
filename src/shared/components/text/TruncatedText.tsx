@@ -44,10 +44,7 @@ export function TruncatedText({
     return () => resizeObserver.disconnect();
   }, [text, lines]);
 
-  const textClassName = cn(
-    lines === 1 ? 'truncate' : 'line-clamp-2',
-    className,
-  );
+  const textClassName = cn(lines === 1 ? 'truncate' : 'line-clamp-2', className);
 
   if (!isTruncated) {
     return (

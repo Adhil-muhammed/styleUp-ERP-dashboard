@@ -1,10 +1,8 @@
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 import type React from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { DashboardSection } from '@/features/dashboard/components/DashboardSection';
-import { RecentActivityList } from '@/features/dashboard/components/RecentActivityList';
-import { useDashboardActivityQuery } from '@/features/dashboard/hooks/use-dashboard-queries';
+import { RecentActivityTable } from '@/features/dashboard/components/RecentActivityTable';
 import type { ActivityTab } from '@/features/dashboard/types/dashboard-activity';
 import {
   Accordion,
@@ -12,9 +10,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '@/shared/components/ui/accordion';
-import { Button } from '@/shared/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/shared/components/ui/card';
-import { Skeleton } from '@/shared/components/ui/skeleton';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/shared/components/ui/tabs';
 import { useResponsive } from '@/shared/hooks/use-responsive';
 import { breakpoints } from '@/theme/responsive';
@@ -27,59 +23,6 @@ const ACTIVITY_TABS: ActivityTab[] = [
   'alerts',
 ];
 
-const PAGE_SIZE = 10;
-
-function ActivityTabSkeleton(): React.ReactElement {
-  return (
-    <div className="space-y-3">
-      {Array.from({ length: 5 }).map((_, index) => (
-        <Skeleton key={index} className="h-12 w-full sm:h-14" />
-      ))}
-    </div>
-  );
-}
-
-function ActivityTabPanel({ tab }: { tab: ActivityTab }): React.ReactElement {
-  const { t } = useTranslation('dashboard');
-  const [pagesLoaded, setPagesLoaded] = useState(1);
-  const params = useMemo(
-    () => ({ page: 1, pageSize: pagesLoaded * PAGE_SIZE }),
-    [pagesLoaded],
-  );
-  const { data, isPending, isError, isFetching } = useDashboardActivityQuery(tab, params);
-
-  const hasMore = data ? data.data.length < data.total : false;
-
-  return (
-    <DashboardSection
-      isPending={isPending && pagesLoaded === 1}
-      isError={isError}
-      isEmpty={Boolean(data && data.data.length === 0)}
-      emptyMessage={t('empty.activity')}
-      skeleton={<ActivityTabSkeleton />}
-    >
-      {data && data.data.length > 0 ? (
-        <div className="space-y-4">
-          <RecentActivityList tab={tab} items={data.data} />
-          {hasMore ? (
-            <div className="flex justify-center pt-2">
-              <Button
-                type="button"
-                variant="outline"
-                size="sm"
-                disabled={isFetching}
-                onClick={() => setPagesLoaded((current) => current + 1)}
-              >
-                {t('activity.loadMore')}
-              </Button>
-            </div>
-          ) : null}
-        </div>
-      ) : null}
-    </DashboardSection>
-  );
-}
-
 function ActivityAccordionView(): React.ReactElement {
   const { t } = useTranslation('dashboard');
 
@@ -91,7 +34,7 @@ function ActivityAccordionView(): React.ReactElement {
             {t(`activity.tabs.${tab}`)}
           </AccordionTrigger>
           <AccordionContent>
-            <ActivityTabPanel tab={tab} />
+            <RecentActivityTable tab={tab} />
           </AccordionContent>
         </AccordionItem>
       ))}
@@ -121,7 +64,7 @@ function ActivityTabsView(): React.ReactElement {
       </TabsList>
       {ACTIVITY_TABS.map((tab) => (
         <TabsContent key={tab} value={tab}>
-          {activeTab === tab ? <ActivityTabPanel key={tab} tab={tab} /> : null}
+          {activeTab === tab ? <RecentActivityTable key={tab} tab={tab} /> : null}
         </TabsContent>
       ))}
     </Tabs>

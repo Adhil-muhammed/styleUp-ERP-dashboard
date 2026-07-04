@@ -10,6 +10,10 @@ export type ActivityTab =
 export type DashboardActivityParams = {
   page?: number;
   pageSize?: number;
+  search?: string;
+  status?: string;
+  type?: string;
+  severity?: string;
 };
 
 export type RecentBooking = {

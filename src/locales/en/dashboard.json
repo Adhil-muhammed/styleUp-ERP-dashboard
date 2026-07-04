@@ -58,6 +58,14 @@
   "activity": {
     "title": "Recent Activity",
     "loadMore": "Load more",
+    "searchPlaceholder": "Search...",
+    "filterAll": "All",
+    "pagination": {
+      "previous": "Previous",
+      "next": "Next",
+      "page": "Page {{current}} of {{total}}",
+      "rowsPerPage": "Rows per page"
+    },
     "tabs": {
       "bookings": "Latest Bookings",
       "registrations": "Recent Registrations",
