@@ -1,1 +1,190 @@
-{}
+{
+  "page": {
+    "title": "Merchant Management",
+    "subtitle": "Onboard, review, and manage salon and shop profiles across the platform."
+  },
+  "list": {
+    "searchPlaceholder": "Search by shop name or owner…",
+    "filterAllStatus": "All statuses",
+    "filterAllCities": "All cities",
+    "featured": "Featured"
+  },
+  "columns": {
+    "shopName": "Shop Name",
+    "owner": "Owner",
+    "rating": "Rating",
+    "status": "Status",
+    "city": "City",
+    "activeServices": "Active Services",
+    "activeStaff": "Active Staff",
+    "actions": "Actions"
+  },
+  "status": {
+    "pending": "Pending",
+    "approved": "Approved",
+    "rejected": "Rejected",
+    "suspended": "Suspended"
+  },
+  "actions": {
+    "menu": "Row actions",
+    "view": "View",
+    "edit": "Edit",
+    "approve": "Approve",
+    "reject": "Reject",
+    "suspend": "Suspend",
+    "feature": "Feature Shop",
+    "unfeature": "Unfeature Shop"
+  },
+  "confirm": {
+    "cancel": "Cancel",
+    "approve": {
+      "title": "Approve shop?",
+      "description": "This will approve {{name}} and make it visible to customers."
+    },
+    "reject": {
+      "title": "Reject shop?",
+      "description": "This will reject {{name}}. The owner will be notified."
+    },
+    "suspend": {
+      "title": "Suspend shop?",
+      "description": "This will suspend {{name}} and hide it from customers."
+    }
+  },
+  "confirmReason": {
+    "label": "Reason",
+    "placeholder": "Enter a reason for this action…"
+  },
+  "form": {
+    "save": "Save changes"
+  },
+  "profile": {
+    "backToList": "Back to merchants"
+  },
+  "tabs": {
+    "general-information": "General Information",
+    "working-hours": "Working Hours",
+    "gallery": "Gallery",
+    "services": "Services",
+    "packages": "Packages",
+    "staff": "Staff",
+    "bookings": "Bookings",
+    "reviews": "Reviews",
+    "performance": "Performance",
+    "audit-history": "Audit History"
+  },
+  "general": {
+    "title": "Shop Profile",
+    "email": "Email",
+    "phone": "Phone",
+    "address": "Address",
+    "description": "Description"
+  },
+  "workingHours": {
+    "open": "Open",
+    "days": {
+      "mon": "Monday",
+      "tue": "Tuesday",
+      "wed": "Wednesday",
+      "thu": "Thursday",
+      "fri": "Friday",
+      "sat": "Saturday",
+      "sun": "Sunday"
+    }
+  },
+  "gallery": {
+    "uploadTitle": "Upload images",
+    "uploadHint": "Drag and drop or click to select images",
+    "empty": "No gallery images yet.",
+    "delete": "Delete image"
+  },
+  "services": {
+    "viewCatalog": "View Service Catalog",
+    "searchPlaceholder": "Search services…",
+    "active": "Active",
+    "inactive": "Inactive",
+    "columns": {
+      "name": "Service",
+      "category": "Category",
+      "duration": "Duration",
+      "price": "Price",
+      "status": "Status"
+    }
+  },
+  "packages": {
+    "viewCatalog": "View Package Management",
+    "searchPlaceholder": "Search packages…",
+    "active": "Active",
+    "inactive": "Inactive",
+    "columns": {
+      "name": "Package",
+      "services": "Services",
+      "price": "Price",
+      "status": "Status"
+    }
+  },
+  "staff": {
+    "viewAll": "View Staff Management",
+    "searchPlaceholder": "Search staff…",
+    "active": "Active",
+    "inactive": "Inactive",
+    "columns": {
+      "name": "Name",
+      "role": "Role",
+      "phone": "Phone",
+      "status": "Status"
+    }
+  },
+  "bookings": {
+    "searchPlaceholder": "Search bookings…",
+    "columns": {
+      "customer": "Customer",
+      "service": "Service",
+      "status": "Status",
+      "scheduled": "Scheduled",
+      "amount": "Amount"
+    }
+  },
+  "reviews": {
+    "searchPlaceholder": "Search reviews…",
+    "columns": {
+      "customer": "Customer",
+      "rating": "Rating",
+      "comment": "Comment",
+      "date": "Date"
+    }
+  },
+  "auditHistory": {
+    "searchPlaceholder": "Search audit logs…",
+    "columns": {
+      "action": "Action",
+      "actor": "Actor",
+      "date": "Date"
+    }
+  },
+  "performance": {
+    "period7": "7 days",
+    "period30": "30 days",
+    "bookingsTrend": "Bookings Trend",
+    "revenueTrend": "Revenue Trend",
+    "ratingTrend": "Rating Trend"
+  },
+  "pagination": {
+    "previous": "Previous",
+    "next": "Next",
+    "page": "Page {{current}} of {{total}}",
+    "rowsPerPage": "Rows per page"
+  },
+  "empty": {
+    "list": "No shops found.",
+    "services": "No services for this shop.",
+    "packages": "No packages for this shop.",
+    "staff": "No staff for this shop.",
+    "bookings": "No bookings for this shop.",
+    "reviews": "No reviews for this shop.",
+    "auditHistory": "No audit history for this shop.",
+    "performance": "No performance data available."
+  },
+  "errors": {
+    "shopNotFound": "Shop not found."
+  }
+}

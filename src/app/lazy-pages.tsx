@@ -14,6 +14,11 @@ export const MerchantManagementPage = lazy(() =>
     default: module.MerchantManagementPage,
   })),
 );
+export const MerchantProfilePage = lazy(() =>
+  import('@/features/merchant-management').then((module) => ({
+    default: module.MerchantProfilePage,
+  })),
+);
 export const StaffManagementPage = lazy(() =>
   import('@/features/staff-management').then((module) => ({ default: module.StaffManagementPage })),
 );

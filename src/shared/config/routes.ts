@@ -4,6 +4,7 @@ export const ROUTES = {
   users: '/users',
   userDetail: '/users/:customerId',
   merchants: '/merchants',
+  merchantDetail: '/merchants/:merchantId',
   staff: '/staff',
   services: '/services',
   packages: '/packages',
@@ -27,4 +28,8 @@ export type RoutePath = (typeof ROUTES)[keyof typeof ROUTES];
 
 export function userDetailPath(customerId: string): string {
   return `/users/${customerId}`;
+}
+
+export function shopDetailPath(merchantId: string): string {
+  return `/merchants/${merchantId}`;
 }

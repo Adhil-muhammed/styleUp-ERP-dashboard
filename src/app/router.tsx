@@ -11,6 +11,7 @@ import {
   LoyaltyPage,
   MediaLibraryPage,
   MerchantManagementPage,
+  MerchantProfilePage,
   MessagingPage,
   NotificationsPage,
   PackageManagementPage,
@@ -59,7 +60,22 @@ export const router = createBrowserRouter([
           </RequirePermission>,
         ),
       },
-      { path: ROUTES.merchants, element: withSuspense(<MerchantManagementPage />) },
+      {
+        path: ROUTES.merchants,
+        element: withSuspense(
+          <RequirePermission action="view" subject={PERMISSIONS.merchants.view}>
+            <MerchantManagementPage />
+          </RequirePermission>,
+        ),
+      },
+      {
+        path: ROUTES.merchantDetail,
+        element: withSuspense(
+          <RequirePermission action="view" subject={PERMISSIONS.merchants.view}>
+            <MerchantProfilePage />
+          </RequirePermission>,
+        ),
+      },
       { path: ROUTES.staff, element: withSuspense(<StaffManagementPage />) },
       { path: ROUTES.services, element: withSuspense(<ServiceCatalogPage />) },
       { path: ROUTES.packages, element: withSuspense(<PackageManagementPage />) },
