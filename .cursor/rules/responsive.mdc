@@ -1,0 +1,57 @@
+---
+description: Responsive design rules for dashboard UI — breakpoints, layout, charts, cards
+globs: "**/*.{tsx,css},src/theme/**"
+alwaysApply: false
+---
+
+# Responsive Design Rules — StyleUp ERP Dashboard
+
+## Breakpoints (Tailwind default, do not override)
+
+- sm: 640px
+- md: 768px
+- lg: 1024px
+- xl: 1280px
+- 2xl: 1536px
+
+## Core principles
+
+- Mobile-first. Write base styles for mobile, layer up with sm:/md:/lg:/xl:.
+- All JavaScript breakpoint checks must use `useResponsive` from `@/shared/hooks/use-responsive`. Never call `matchMedia`, `window.innerWidth`, or attach resize listeners in components.
+- Never use fixed pixel widths on containers, cards, or charts. Use %, fr, or max-w-* with w-full.
+- Never hardcode breakpoint values inline (no `@media (min-width: 810px)`). Only use Tailwind breakpoint prefixes.
+- All spacing must come from the shared spacing scale (gap-2, gap-4, gap-6, p-4, p-6). No arbitrary values like p-[13px].
+- All new components must be checked at sm, md, lg, xl before being marked done.
+
+## Layout rules
+
+- Grids: use the shared `ResponsiveGrid` component or `grid.*` tokens from `src/theme/responsive.ts` instead of redefining grid-cols-* per component.
+- Two-column or multi-column sections must collapse to single column below lg (charts) or per theme preset.
+- Sidebars/filters that are fixed on desktop must become drawer/sheet/accordion on mobile — never horizontally compress.
+- Sticky headers/toolbars must include safe z-index from theme (`zIndex.stickyHeader`) and must not overlap content on scroll at any breakpoint.
+
+## Cards (KPI, activity, etc.)
+
+- Use shared `Card` and `KpiCard` components only. No one-off card markup.
+- Text inside cards truncates with `truncate` + Tooltip via `TruncatedText` — never wraps and breaks card height.
+- Icon and font sizes step down at sm using theme `typography.*` tokens, not manual overrides.
+
+## Charts
+
+- All charts must be wrapped in shadcn `ChartContainer` (recharts ResponsiveContainer inside) — no fixed width/height props on containers.
+- Provide mobile behavior via the shared `useChartResponsive` hook and `chart.mobileConfig` from theme.
+- Multi-series charts must have a simplified mobile variant, not just a shrunk version of desktop.
+
+## Tables / lists
+
+- Tables convert to card/list layout below md using the shared `ResponsiveTable` component when available.
+- No native horizontal-scroll tables unless explicitly approved — check with shared component first.
+
+## Loading states
+
+- Skeletons must match the responsive dimensions of the final content at each breakpoint. No fixed-size skeletons that cause layout shift when real content loads.
+
+## Enforcement
+
+- Before marking any dashboard task complete, verify: no fixed px widths added, no inline media queries, no ad-hoc spacing values, all breakpoint prefixes match the scale above.
+- If a new responsive pattern is needed that isn't covered here, add it to `src/theme/responsive.ts` first, then use it — don't solve it locally in the component.

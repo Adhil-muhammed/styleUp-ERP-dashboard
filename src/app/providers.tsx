@@ -9,6 +9,7 @@ import i18n from '@/shared/lib/i18n';
 import { MerchantProvider } from '@/shared/lib/merchant-context';
 import { queryClient } from '@/shared/lib/query-client';
 import { ThemeProvider } from '@/shared/lib/theme-provider';
+import { TooltipProvider } from '@/shared/components/ui/tooltip';
 
 type ProvidersProps = {
   children: React.ReactNode;
@@ -20,7 +21,9 @@ export function Providers({ children }: ProvidersProps): React.ReactElement {
       <I18nextProvider i18n={i18n}>
         <AbilityProvider value={defaultAbility}>
           <MerchantProvider>
-            <ThemeProvider>{children}</ThemeProvider>
+            <ThemeProvider>
+              <TooltipProvider>{children}</TooltipProvider>
+            </ThemeProvider>
           </MerchantProvider>
         </AbilityProvider>
       </I18nextProvider>

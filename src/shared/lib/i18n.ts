@@ -25,6 +25,25 @@ const namespaces = [
   'audit-logs',
 ] as const;
 
+type LocaleResource = Record<string, unknown>;
+
+const localeModules = import.meta.glob<{ default: LocaleResource }>(
+  '../../locales/*/*.json',
+  { eager: true },
+);
+
+const resources: Record<string, Record<string, LocaleResource>> = {};
+
+for (const path of Object.keys(localeModules)) {
+  const match = /\/locales\/([\w-]+)\/([\w-]+)\.json$/.exec(path);
+  if (!match) {
+    continue;
+  }
+  const [, lng, ns] = match;
+  resources[lng] ??= {};
+  resources[lng][ns] = localeModules[path].default;
+}
+
 void i18n
   .use(LanguageDetector)
   .use(initReactI18next)
@@ -36,7 +55,7 @@ void i18n
     interpolation: {
       escapeValue: false,
     },
-    resources: {},
+    resources,
   });
 
 export default i18n;

@@ -1,1 +1,114 @@
-{}
+{
+  "page": {
+    "title": "Dashboard",
+    "subtitle": "Overview of platform performance and recent activity"
+  },
+  "kpis": {
+    "totalCustomers": "Total Customers",
+    "activeCustomers": "Active Customers",
+    "totalShops": "Total Shops",
+    "activeShops": "Active Shops",
+    "todaysBookings": "Today's Bookings",
+    "upcomingBookings": "Upcoming Bookings",
+    "cancelledBookings": "Cancelled Bookings",
+    "revenueToday": "Revenue Today",
+    "revenueThisMonth": "Revenue This Month",
+    "averageRating": "Average Rating",
+    "activePromotions": "Active Promotions"
+  },
+  "charts": {
+    "dailyBookings": {
+      "title": "Daily Bookings",
+      "description": "Bookings and revenue over time",
+      "period7": "7 days",
+      "period30": "30 days",
+      "bookings": "Bookings",
+      "revenue": "Revenue"
+    },
+    "monthlyRevenue": {
+      "title": "Monthly Revenue",
+      "description": "Revenue for the last 12 months",
+      "revenue": "Revenue"
+    },
+    "topServices": {
+      "title": "Top Services",
+      "description": "Most booked services",
+      "bookings": "Bookings"
+    },
+    "topShops": {
+      "title": "Top Shops",
+      "description": "Highest performing salons",
+      "bookings": "Bookings"
+    },
+    "customerGrowth": {
+      "title": "Customer Growth",
+      "description": "New and cumulative customers",
+      "newCustomers": "New Customers",
+      "cumulativeCustomers": "Cumulative Customers"
+    },
+    "bookingStatus": {
+      "title": "Booking Status Distribution",
+      "description": "Breakdown by booking status",
+      "confirmed": "Confirmed",
+      "completed": "Completed",
+      "cancelled": "Cancelled",
+      "no_show": "No Show"
+    }
+  },
+  "activity": {
+    "title": "Recent Activity",
+    "loadMore": "Load more",
+    "tabs": {
+      "bookings": "Latest Bookings",
+      "registrations": "Recent Registrations",
+      "reviews": "Recent Reviews",
+      "refunds": "Recent Refunds",
+      "alerts": "System Alerts"
+    },
+    "columns": {
+      "customer": "Customer",
+      "shop": "Shop",
+      "service": "Service",
+      "status": "Status",
+      "scheduledAt": "Scheduled",
+      "name": "Name",
+      "email": "Email",
+      "type": "Type",
+      "registeredAt": "Registered",
+      "rating": "Rating",
+      "comment": "Comment",
+      "reviewedAt": "Reviewed",
+      "bookingId": "Booking",
+      "amount": "Amount",
+      "requestedAt": "Requested",
+      "severity": "Severity",
+      "message": "Message",
+      "createdAt": "Created"
+    },
+    "status": {
+      "confirmed": "Confirmed",
+      "completed": "Completed",
+      "cancelled": "Cancelled",
+      "pending": "Pending",
+      "processed": "Processed",
+      "failed": "Failed"
+    },
+    "types": {
+      "customer": "Customer",
+      "merchant": "Merchant"
+    },
+    "severity": {
+      "info": "Info",
+      "warning": "Warning",
+      "critical": "Critical"
+    }
+  },
+  "errors": {
+    "loadFailed": "Failed to load data"
+  },
+  "empty": {
+    "kpis": "No KPI data available",
+    "chart": "No chart data available",
+    "activity": "No recent activity"
+  }
+}

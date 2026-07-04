@@ -5,7 +5,7 @@ export type BreadcrumbsProps = {
 
 export function Breadcrumbs({ items = [] }: BreadcrumbsProps): React.ReactElement {
   return (
-    <nav aria-label="Breadcrumb" className="px-6 py-2 text-sm text-muted-foreground">
+    <nav aria-label="Breadcrumb" className="shrink-0 px-6 py-2 text-sm text-muted-foreground">
       {items.length === 0 ? null : items.map((item) => item.label).join(' / ')}
     </nav>
   );
