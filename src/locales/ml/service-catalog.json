@@ -1,1 +1,89 @@
-{}
+{
+  "page": {
+    "title": "സേവന കാറ്റലോഗ്",
+    "subtitle": "പ്ലാറ്റ്ഫോമിലെ സേവന വിഭാഗങ്ങളും വariantകളും നിയന്ത്രിക്കുക"
+  },
+  "tabs": {
+    "categories": "വിഭാഗങ്ങൾ",
+    "variants": "സേവന വariantകൾ"
+  },
+  "columns": {
+    "name": "പേര്",
+    "category": "വിഭാഗം",
+    "gender": "ലിംഗം",
+    "duration": "കാലാവധി",
+    "price": "വില",
+    "status": "സ്റ്റാറ്റസ്",
+    "sortOrder": "ക്രമം",
+    "variantCount": "വariantകൾ",
+    "actions": "പ്രവർത്തനങ്ങൾ"
+  },
+  "list": {
+    "addCategory": "വിഭാഗം ചേർക്കുക",
+    "addVariant": "സേവന വariant ചേർക്കുക",
+    "searchCategoriesPlaceholder": "വിഭാഗങ്ങൾ തിരയുക…",
+    "searchVariantsPlaceholder": "സേവന വariantകൾ തിരയുക…",
+    "filterAllStatus": "എല്ലാ സ്റ്റാറ്റസും",
+    "filterAllCategories": "എല്ലാ വിഭാഗങ്ങളും",
+    "filterAllGender": "എല്ലാ ലിംഗവും",
+    "durationMinutes": "{{count}} മിനിറ്റ്"
+  },
+  "status": {
+    "active": "സജീവം",
+    "inactive": "നിഷ്ക്രിയം"
+  },
+  "gender": {
+    "male": "പുരുഷൻ",
+    "female": "സ്ത്രീ",
+    "unisex": "യൂണിസെക്സ്"
+  },
+  "actions": {
+    "edit": "എഡിറ്റ്",
+    "delete": "ഇല്ലാതാക്കുക"
+  },
+  "confirm": {
+    "cancel": "റദ്ദാക്കുക",
+    "delete": {
+      "title": "വിഭാഗം ഇല്ലാതാക്കണോ?",
+      "description": "{{name}} കാറ്റലോഗിൽ നിന്ന് ശാശ്വതമായി നീക്കം ചെയ്യും."
+    },
+    "deleteBlocked": {
+      "description": "ഈ വിഭാഗത്തിന് ബന്ധപ്പെട്ട സേവന വariantukൾ ഉണ്ട്. ഇല്ലാതാക്ക하기 മുമ്പ് അവ നീക്കം ചെയ്യുക."
+    },
+    "deleteVariant": {
+      "title": "സേവന വariant ഇല്ലാതാക്കണോ?",
+      "description": "{{name}} കാറ്റലോഗിൽ നിന്ന് ശാശ്വതമായി നീക്കം ചെയ്യും."
+    }
+  },
+  "form": {
+    "addCategoryTitle": "വിഭാഗം ചേർക്കുക",
+    "editCategoryTitle": "വിഭാഗം എഡിറ്റ് ചെയ്യുക",
+    "addVariantTitle": "സേവന വariant ചേർക്കുക",
+    "editVariantTitle": "സേവന വariant എഡിറ്റ് ചെയ്യുക",
+    "name": "പേര്",
+    "imageUrl": "ചിത്ര URL",
+    "category": "വിഭാഗം",
+    "gender": "ലിംഗം",
+    "durationMinutes": "കാലാവധി (മിനിറ്റ്)",
+    "price": "വില (INR)",
+    "sortOrder": "ക്രമ നമ്പർ",
+    "description": "വിവരണം",
+    "image": "ചിത്രം",
+    "removeImage": "ചിത്രം നീക്കം ചെയ്യുക",
+    "status": "സ്റ്റാറ്റസ്",
+    "save": "മാറ്റങ്ങൾ സേവ് ചെയ്യുക"
+  },
+  "pagination": {
+    "previous": "മുൻപത്തെ",
+    "next": "അടുത്ത",
+    "page": "പേജ് {{current}} / {{total}}",
+    "rowsPerPage": "ഓരോ പേജിലും വരികൾ"
+  },
+  "empty": {
+    "categories": "വിഭാഗങ്ങൾ ഒന്നുമില്ല.",
+    "variants": "സേവന വariantukൾ ഒന്നുമില്ല."
+  },
+  "errors": {
+    "nameRequired": "പേര് ആവശ്യമാണ്."
+  }
+}

@@ -1,1 +1,89 @@
-{}
+{
+  "page": {
+    "title": "Service Catalog",
+    "subtitle": "Manage service categories and variants for the platform"
+  },
+  "tabs": {
+    "categories": "Categories",
+    "variants": "Service Variants"
+  },
+  "columns": {
+    "name": "Name",
+    "category": "Category",
+    "gender": "Gender",
+    "duration": "Duration",
+    "price": "Price",
+    "status": "Status",
+    "sortOrder": "Sort Order",
+    "variantCount": "Variants",
+    "actions": "Actions"
+  },
+  "list": {
+    "addCategory": "Add Category",
+    "addVariant": "Add Service Variant",
+    "searchCategoriesPlaceholder": "Search categories…",
+    "searchVariantsPlaceholder": "Search service variants…",
+    "filterAllStatus": "All statuses",
+    "filterAllCategories": "All categories",
+    "filterAllGender": "All genders",
+    "durationMinutes": "{{count}} min"
+  },
+  "status": {
+    "active": "Active",
+    "inactive": "Inactive"
+  },
+  "gender": {
+    "male": "Male",
+    "female": "Female",
+    "unisex": "Unisex"
+  },
+  "actions": {
+    "edit": "Edit",
+    "delete": "Delete"
+  },
+  "confirm": {
+    "cancel": "Cancel",
+    "delete": {
+      "title": "Delete category?",
+      "description": "This permanently removes {{name}} from the catalog. This action cannot be undone."
+    },
+    "deleteBlocked": {
+      "description": "This category has linked service variants. Remove or reassign variants before deleting."
+    },
+    "deleteVariant": {
+      "title": "Delete service variant?",
+      "description": "This permanently removes {{name}} from the catalog. This action cannot be undone."
+    }
+  },
+  "form": {
+    "addCategoryTitle": "Add category",
+    "editCategoryTitle": "Edit category",
+    "addVariantTitle": "Add service variant",
+    "editVariantTitle": "Edit service variant",
+    "name": "Name",
+    "imageUrl": "Image URL",
+    "category": "Category",
+    "gender": "Gender",
+    "durationMinutes": "Duration (minutes)",
+    "price": "Price (INR)",
+    "sortOrder": "Sort order",
+    "description": "Description",
+    "image": "Image",
+    "removeImage": "Remove image",
+    "status": "Status",
+    "save": "Save changes"
+  },
+  "pagination": {
+    "previous": "Previous",
+    "next": "Next",
+    "page": "Page {{current}} of {{total}}",
+    "rowsPerPage": "Rows per page"
+  },
+  "empty": {
+    "categories": "No categories found.",
+    "variants": "No service variants found."
+  },
+  "errors": {
+    "nameRequired": "Name is required."
+  }
+}
