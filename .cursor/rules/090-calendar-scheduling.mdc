@@ -1,22 +1,26 @@
 ---
-description: FullCalendar scheduling conventions for calendar-scheduling feature
+description: CalendarKit Basic scheduling conventions for calendar-scheduling feature
 globs: "src/features/calendar-scheduling/**"
 alwaysApply: false
 ---
 
 # Calendar and Scheduling
 
-## FullCalendar setup
+## CalendarKit Basic setup
 
-- Pinned version: `@fullcalendar/react@6.1.21` with `@fullcalendar/core`, `daygrid`, `timegrid`, `resource-timeline`, `interaction`
-- **Default view:** `resource-timeline` for staff/multi-resource scheduling UI
-- Before adding new `@fullcalendar/*` packages: verify peer dependency range includes React 19 and matches `~6.1.21` line
+- Pinned version: `calendarkit-basic` (MIT, npm)
+- **Only** [`CalendarView.tsx`](src/features/calendar-scheduling/components/calendar/CalendarView.tsx) imports `calendarkit-basic` — feature tabs consume the wrapper
+- **Views available:** `month`, `week`, `day` only (no agenda, resource/timeline, drag-drop, or RRULE in Basic)
+- **Staff scheduling:** week view + `calendars` filter toggles per staff (resource view requires Pro)
+- **Reschedule:** click booking → `BookingDetailsSheet` → `RescheduleDialog` (no drag-drop in Basic)
+- **Week start:** Monday (`weekStartsOn={1}`)
 
 ## Data flow
 
 - Calendar event data **always** flows through TanStack Query hooks in `calendar-scheduling/hooks/`
-- FullCalendar components **never** fetch directly — receive events as props from query results
-- API functions in `calendar-scheduling/api/` use `apiClient` from `src/shared/lib/axios.ts`
+- Calendar components **never** fetch directly — receive domain `ScheduleEvent[]` as props from query results
+- Map domain events to CalendarKit `Date`-based events in the wrapper via `lib/adapters/to-kit-event.ts`
+- API functions in `calendar-scheduling/api/` use fixtures + `mockDelay` until backend is live
 
 ## Feature placement
 

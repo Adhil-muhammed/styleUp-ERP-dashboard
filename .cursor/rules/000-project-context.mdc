@@ -9,7 +9,7 @@ StyleUp ERP is the admin dashboard for **StyleQuest**, a salon and beauty bookin
 
 ## Stack
 
-Vite 8, React 19, TypeScript strict, Tailwind v4 (CSS-first), shadcn/ui (radix-nova), TanStack Query/Table/Virtual, Zustand, react-router-dom, CASL, react-hook-form + Zod, FullCalendar 6.1.21, socket.io-client, i18next. Package manager: **pnpm only**.
+Vite 8, React 19, TypeScript strict, Tailwind v4 (CSS-first), shadcn/ui (radix-nova), TanStack Query/Table/Virtual, Zustand, react-router-dom, CASL, react-hook-form + Zod, calendarkit-basic, socket.io-client, i18next. Package manager: **pnpm only**.
 
 ## 19 Modules
 

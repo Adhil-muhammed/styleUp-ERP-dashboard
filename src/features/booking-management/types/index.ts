@@ -17,11 +17,13 @@ export type {
 } from '@/features/booking-management/types/booking-detail';
 export type {
   CancelBookingInput,
+  CreateBookingInput,
   RescheduleBookingInput,
   UpdateBookingNotesInput,
 } from '@/features/booking-management/types/booking.schema';
 export {
   CancelBookingSchema,
+  CreateBookingSchema,
   RescheduleBookingSchema,
   UpdateBookingNotesSchema,
 } from '@/features/booking-management/types/booking.schema';

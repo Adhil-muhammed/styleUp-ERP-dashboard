@@ -1,1 +1,122 @@
-{}
+{
+  "page": {
+    "title": "Calendar & Scheduling",
+    "subtitle": "Manage shop calendars, staff availability, holidays, and blocked time."
+  },
+  "tabs": {
+    "shop": "Shop Calendar",
+    "staff": "Staff Calendar",
+    "holidays": "Holidays",
+    "blocked": "Blocked Slots",
+    "working-hours": "Working Hours",
+    "recurring": "Recurring Availability",
+    "bulk": "Bulk Update"
+  },
+  "views": {
+    "month": "Month",
+    "week": "Week",
+    "day": "Day"
+  },
+  "nav": {
+    "prev": "Previous period",
+    "next": "Next period",
+    "today": "Today"
+  },
+  "filters": {
+    "shop": "Shop",
+    "allShops": "All shops",
+    "staff": "Staff",
+    "allStaff": "All staff"
+  },
+  "legend": {
+    "confirmed": "Confirmed booking",
+    "pending": "Pending booking",
+    "completed": "Completed booking",
+    "cancelled": "Cancelled booking",
+    "no_show": "No-show booking",
+    "holiday": "Holiday",
+    "blocked": "Blocked slot",
+    "break": "Staff break",
+    "recurring": "Recurring availability"
+  },
+  "actions": {
+    "cancel": "Cancel",
+    "save": "Save",
+    "edit": "Edit",
+    "delete": "Delete"
+  },
+  "empty": {
+    "calendar": "No events in this date range.",
+    "calendarCta": "Click an empty slot or use the button below to create a booking.",
+    "staffCalendar": "No staff events in this range.",
+    "staffCalendarHint": "Toggle staff calendars above to filter. Reschedule bookings from the details sheet.",
+    "loading": "Loading…"
+  },
+  "staff": {
+    "resourceViewNote": "Staff view uses week mode with per-staff filters. Side-by-side timeline requires CalendarKit Pro."
+  },
+  "manualBooking": {
+    "title": "Create manual booking",
+    "customerName": "Customer name",
+    "customerPhone": "Phone number",
+    "serviceName": "Service name",
+    "duration": "Duration (minutes)",
+    "amount": "Amount (₹)"
+  },
+  "holidays": {
+    "add": "Add holiday",
+    "addTitle": "Add holiday",
+    "editTitle": "Edit holiday",
+    "name": "Holiday name",
+    "scopeShop": "Shop-wide",
+    "scopeStaff": "Staff-specific",
+    "recurringYearly": "Repeat every year",
+    "viewCalendar": "Calendar",
+    "viewList": "List",
+    "conflictTitle": "Booking conflicts detected",
+    "conflictDescription": "{{count}} confirmed bookings overlap this holiday period.",
+    "conflictConfirm": "Save anyway",
+    "empty": "No holidays scheduled."
+  },
+  "blocked": {
+    "add": "Block time",
+    "addTitle": "Block time slot",
+    "editTitle": "Edit blocked slot",
+    "reason": "Reason",
+    "scopeShop": "Shop-wide",
+    "scopeStaff": "Staff-specific",
+    "empty": "No blocked slots for this shop."
+  },
+  "workingHours": {
+    "shop": "Shop hours",
+    "staff": "Staff hours",
+    "days": {
+      "mon": "Monday",
+      "tue": "Tuesday",
+      "wed": "Wednesday",
+      "thu": "Thursday",
+      "fri": "Friday",
+      "sat": "Saturday",
+      "sun": "Sunday"
+    }
+  },
+  "recurring": {
+    "add": "Add pattern",
+    "addTitle": "Add recurring availability",
+    "editTitle": "Edit recurring availability",
+    "label": "Pattern label",
+    "addDay": "Add day",
+    "removeDay": "Remove day",
+    "empty": "No recurring availability patterns yet."
+  },
+  "bulk": {
+    "actionBlocked": "Block time slots",
+    "actionHoliday": "Create holidays",
+    "actionWorkingHours": "Update working hours",
+    "preview": "Preview changes",
+    "previewTitle": "Bulk schedule preview",
+    "previewDescription": "This will affect {{staff}} staff across {{dates}} days ({{total}} total entries).",
+    "previewEmpty": "No preview data available.",
+    "confirmApply": "Apply changes"
+  }
+}

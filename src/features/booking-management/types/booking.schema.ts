@@ -17,3 +17,16 @@ export const UpdateBookingNotesSchema = z.object({
 });
 
 export type UpdateBookingNotesInput = z.infer<typeof UpdateBookingNotesSchema>;
+
+export const CreateBookingSchema = z.object({
+  shopId: z.string().min(1),
+  customerName: z.string().min(1),
+  customerPhone: z.string().min(1),
+  staffId: z.string().min(1),
+  serviceName: z.string().min(1),
+  scheduledAt: z.string().min(1),
+  durationMinutes: z.number().min(15).max(480),
+  amount: z.number().min(0),
+});
+
+export type CreateBookingInput = z.infer<typeof CreateBookingSchema>;

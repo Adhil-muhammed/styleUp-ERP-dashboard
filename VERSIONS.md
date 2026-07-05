@@ -2,11 +2,10 @@
 
 Generated from `pnpm list --depth 0` on scaffold completion.
 
-## FullCalendar + React 19
+## CalendarKit Basic + React 19
 
-- **@fullcalendar/react@6.1.21** peer range includes React 19 (`^16.7.0 || ^17 || ^18 || ^19`)
-- **@fullcalendar/core@6.1.21** installed explicitly as a direct dependency
-- No `pnpm.overrides` required
+- **calendarkit-basic@1.1.0** peer range includes React 19 (`^18.0.0 || ^19.0.0`)
+- Replaced FullCalendar 6.1.21 (removed July 2026)
 
 ## shadcn/ui
 
@@ -22,12 +21,7 @@ Generated from `pnpm list --depth 0` on scaffold completion.
 | @casl/ability | 7.0.0 |
 | @casl/react | 7.0.0 |
 | @fontsource-variable/geist | 5.2.9 |
-| @fullcalendar/core | 6.1.21 |
-| @fullcalendar/daygrid | 6.1.21 |
-| @fullcalendar/interaction | 6.1.21 |
-| @fullcalendar/react | 6.1.21 |
-| @fullcalendar/resource-timeline | 6.1.21 |
-| @fullcalendar/timegrid | 6.1.21 |
+| calendarkit-basic | 1.1.0 |
 | @hookform/resolvers | 5.4.0 |
 | @sentry/react | 10.63.0 |
 | @tailwindcss/vite | 4.3.2 |

@@ -15,12 +15,14 @@ import { bookingDetailsFixture } from '@/features/booking-management/api/fixture
 import { bookingsFixture } from '@/features/booking-management/api/fixtures/bookings.fixture';
 import type {
   CancelBookingInput,
+  CreateBookingInput,
   RescheduleBookingInput,
   UpdateBookingNotesInput,
 } from '@/features/booking-management/types/booking.schema';
 import type { BookingDetail } from '@/features/booking-management/types/booking-detail';
 import type { BookingListItem, BookingListParams } from '@/features/booking-management/types/booking';
 import { customersFixture } from '@/features/user-management/api/fixtures/customers.fixture';
+import { staffFixture } from '@/features/staff-management/api/fixtures/staff.fixture';
 import { mockDelay } from '@/shared/lib/mock-delay';
 import type { ApiMutationResponse } from '@/shared/types/api';
 import type { PaginatedResponse } from '@/shared/types/common';
@@ -265,6 +267,94 @@ export function markBookingNoShow(
     note: input.reason,
   });
   return mockDelay({ success: true }, 300);
+}
+
+export type BookingCalendarRecord = BookingListItem & {
+  durationMinutes: number;
+  customerPhone: string;
+};
+
+export type BookingsInRangeParams = {
+  shopId: string;
+  rangeStart: string;
+  rangeEnd: string;
+  staffIds?: string[];
+};
+
+function getDurationMinutes(record: BookingRecord): number {
+  if (record.service?.durationMinutes) {
+    return record.service.durationMinutes;
+  }
+  if (record.package?.includedServices.length) {
+    return record.package.includedServices.reduce((sum, item) => sum + item.durationMinutes, 0);
+  }
+  return 60;
+}
+
+function toCalendarRecord(record: BookingRecord): BookingCalendarRecord {
+  return {
+    ...toListItem(record),
+    durationMinutes: getDurationMinutes(record),
+    customerPhone: record.customerPhone,
+  };
+}
+
+export function getBookingsInRange(params: BookingsInRangeParams): Promise<BookingCalendarRecord[]> {
+  const rangeEnd = params.rangeEnd.includes('T')
+    ? params.rangeEnd
+    : `${params.rangeEnd}T23:59:59.999Z`;
+  let filtered = bookingsStore.filter(
+    (item) =>
+      item.merchantId === params.shopId &&
+      item.scheduledAt >= params.rangeStart &&
+      item.scheduledAt <= rangeEnd,
+  );
+  if (params.staffIds?.length) {
+    filtered = filtered.filter((item) => params.staffIds!.includes(item.staffId));
+  }
+  return mockDelay(filtered.map(toCalendarRecord), 300);
+}
+
+let nextBookingCounter = 100;
+
+export function createBooking(input: CreateBookingInput): Promise<{ id: string; success: boolean }> {
+  const staff = staffFixture.find((item) => item.id === input.staffId);
+  const shopNames: Record<string, string> = {
+    'shp-001': 'Luxe Salon Kochi',
+    'shp-002': 'Glow Studio Edappally',
+    'shp-003': 'StyleQuest MG Road',
+    'shp-004': 'Urban Cuts Kaloor',
+  };
+  const id = `bkg-${String(nextBookingCounter++).padStart(3, '0')}`;
+  const scheduledAt = new Date(input.scheduledAt).toISOString();
+  const record: BookingRecord = {
+    id,
+    merchantId: input.shopId,
+    shopName: shopNames[input.shopId] ?? 'Unknown Shop',
+    customerId: `usr-new-${id}`,
+    customerName: input.customerName,
+    staffId: input.staffId,
+    staffName: staff?.name ?? 'Unassigned',
+    kind: 'service',
+    serviceName: input.serviceName,
+    status: 'pending',
+    scheduledAt,
+    paymentStatus: 'pending',
+    amount: input.amount,
+    customerPhone: input.customerPhone,
+    service: {
+      name: input.serviceName,
+      category: 'General',
+      durationMinutes: input.durationMinutes,
+      price: input.amount,
+    },
+    timeline: [{ type: 'created', at: new Date().toISOString() }],
+    payment: { amount: input.amount, method: 'Cash', status: 'pending' },
+    internalNotes: '',
+    customerNotes: '',
+  };
+  bookingsStore = [record, ...bookingsStore];
+  return mockDelay({ id, success: true }, 350);
 }
 
 export function updateBookingNotes(
