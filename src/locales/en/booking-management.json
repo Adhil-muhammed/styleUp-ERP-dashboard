@@ -1,1 +1,22 @@
-{}
+{
+  "page": {
+    "title": "Booking Management",
+    "subtitleAdmin": "Showing bookings for {{scope}}",
+    "subtitleOwner": "Bookings for your shop"
+  },
+  "scope": {
+    "allShops": "all shops",
+    "singleShop": "shop {{shopId}}"
+  },
+  "list": {
+    "title": "{{count}} bookings",
+    "customer": "Customer",
+    "service": "Service",
+    "staff": "Staff",
+    "status": "Status",
+    "paymentStatus": "Payment"
+  },
+  "empty": {
+    "list": "No bookings found for this scope."
+  }
+}

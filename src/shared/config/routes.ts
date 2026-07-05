@@ -1,11 +1,13 @@
 export const ROUTES = {
   home: '/',
+  login: '/login',
   dashboard: '/dashboard',
   users: '/users',
   userDetail: '/users/:customerId',
   merchants: '/merchants',
   merchantDetail: '/merchants/:merchantId',
   staff: '/staff',
+  staffDetail: '/staff/:staffId',
   services: '/services',
   packages: '/packages',
   bookings: '/bookings',
@@ -32,4 +34,8 @@ export function userDetailPath(customerId: string): string {
 
 export function shopDetailPath(merchantId: string): string {
   return `/merchants/${merchantId}`;
+}
+
+export function staffDetailPath(staffId: string): string {
+  return `/staff/${staffId}`;
 }

@@ -5,6 +5,7 @@ import { DASHBOARD_NAV_ITEM, NAV_GROUPS } from '@/shared/config/navigation';
 import { SidebarGroup } from '@/shared/components/layout/SidebarGroup';
 import { SidebarItem } from '@/shared/components/layout/SidebarItem';
 import { SidebarToggle } from '@/shared/components/layout/SidebarToggle';
+import { usePermissions } from '@/shared/hooks/use-permissions';
 import { cn } from '@/shared/lib/utils';
 import { layout, nav } from '@/theme/responsive';
 
@@ -22,11 +23,29 @@ export function SidebarContent({
   showToggle = false,
 }: SidebarContentProps): React.ReactElement {
   const { t } = useTranslation('common');
+  const ability = usePermissions();
+
+  const canViewDashboard =
+    !DASHBOARD_NAV_ITEM.permission ||
+    ability.can('view', DASHBOARD_NAV_ITEM.permission);
+
+  const visibleGroups = NAV_GROUPS.map((group) => ({
+    ...group,
+    items: group.items.filter(
+      (item) => !item.permission || ability.can('view', item.permission),
+    ),
+  })).filter((group) => group.items.length > 0);
 
   return (
     <div className={cn('flex h-full min-h-0 flex-col', className)}>
       {showToggle ? (
-        <div className={cn('flex shrink-0 items-center border-b border-sidebar-border', nav.railPadding, collapsed ? 'justify-center' : 'justify-end')}>
+        <div
+          className={cn(
+            'flex shrink-0 items-center border-b border-sidebar-border',
+            nav.railPadding,
+            collapsed ? 'justify-center' : 'justify-end',
+          )}
+        >
           <SidebarToggle variant="sidebar" />
         </div>
       ) : null}
@@ -39,22 +58,20 @@ export function SidebarContent({
         data-testid="sidebar-content"
         aria-label={t('nav.title')}
       >
-        <SidebarGroup collapsed={collapsed}>
-          <SidebarItem
-            to={DASHBOARD_NAV_ITEM.to}
-            icon={DASHBOARD_NAV_ITEM.icon}
-            label={t(DASHBOARD_NAV_ITEM.labelKey)}
-            collapsed={collapsed}
-            onNavigate={onNavigate}
-          />
-        </SidebarGroup>
+        {canViewDashboard ? (
+          <SidebarGroup collapsed={collapsed}>
+            <SidebarItem
+              to={DASHBOARD_NAV_ITEM.to}
+              icon={DASHBOARD_NAV_ITEM.icon}
+              label={t(DASHBOARD_NAV_ITEM.labelKey)}
+              collapsed={collapsed}
+              onNavigate={onNavigate}
+            />
+          </SidebarGroup>
+        ) : null}
 
-        {NAV_GROUPS.map((group) => (
-          <SidebarGroup
-            key={group.id}
-            label={t(group.labelKey)}
-            collapsed={collapsed}
-          >
+        {visibleGroups.map((group) => (
+          <SidebarGroup key={group.id} label={t(group.labelKey)} collapsed={collapsed}>
             {group.items.map((item) => (
               <SidebarItem
                 key={item.id}

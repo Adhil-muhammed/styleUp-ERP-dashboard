@@ -1,7 +1,8 @@
 {
   "page": {
     "title": "Dashboard",
-    "subtitle": "Overview of platform performance and recent activity"
+    "subtitle": "Overview of platform performance and recent activity",
+    "subtitleScoped": "Performance for {{shopName}}"
   },
   "kpis": {
     "totalCustomers": "Total Customers",

@@ -21,7 +21,11 @@ import {
   topShopsFixture,
 } from '@/features/dashboard/api/fixtures/dashboard-charts.fixture';
 import { activityFixtures } from '@/features/dashboard/api/fixtures/dashboard-activity.fixture';
-import { dashboardKpisFixture } from '@/features/dashboard/api/fixtures/dashboard-kpis.fixture';
+import {
+  dashboardKpisFixture,
+  getShopDashboardKpis,
+} from '@/features/dashboard/api/fixtures/dashboard-kpis.fixture';
+import { mockDelay } from '@/shared/lib/mock-delay';
 import type {
   ActivityItemMap,
   ActivityTab,
@@ -136,8 +140,9 @@ function paginate<T>(
   };
 }
 
-export function getDashboardKpis(): Promise<DashboardKpis> {
-  return Promise.resolve(dashboardKpisFixture);
+export function getDashboardKpis(merchantId?: string | null): Promise<DashboardKpis> {
+  const data = merchantId ? getShopDashboardKpis(merchantId) : dashboardKpisFixture;
+  return mockDelay(data, 350);
 }
 
 export function getDailyBookingsChart(

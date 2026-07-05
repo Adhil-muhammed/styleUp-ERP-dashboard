@@ -1,6 +1,6 @@
 import { createContext, useContext, type ReactNode } from 'react';
 
-import { useMerchantStore } from '@/shared/lib/merchant-store';
+import { useScope } from '@/shared/hooks/use-scope';
 
 type MerchantContextValue = {
   merchantId: string | null;
@@ -13,7 +13,7 @@ type MerchantProviderProps = {
 };
 
 export function MerchantProvider({ children }: MerchantProviderProps): React.ReactElement {
-  const merchantId = useMerchantStore((state) => state.merchantId);
+  const { merchantId } = useScope();
 
   return (
     <MerchantContext.Provider value={{ merchantId }}>{children}</MerchantContext.Provider>

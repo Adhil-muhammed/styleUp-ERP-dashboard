@@ -1,1 +1,148 @@
-{}
+{
+  "page": {
+    "title": "Staff Management",
+    "subtitle": "Manage salon staff across shops"
+  },
+  "columns": {
+    "name": "Name",
+    "shop": "Shop",
+    "role": "Role",
+    "rating": "Rating",
+    "availability": "Availability",
+    "status": "Status",
+    "actions": "Actions"
+  },
+  "list": {
+    "searchPlaceholder": "Search staff…",
+    "addStaff": "Add Staff",
+    "filterAllShops": "All shops",
+    "filterAllRoles": "All roles",
+    "filterAllStatus": "All statuses",
+    "filterAllAvailability": "All availability"
+  },
+  "status": {
+    "active": "Active",
+    "inactive": "Inactive"
+  },
+  "availability": {
+    "available": "Available",
+    "busy": "Busy",
+    "off": "Off duty"
+  },
+  "role": {
+    "senior_stylist": "Senior Stylist",
+    "stylist": "Stylist",
+    "barber": "Barber",
+    "beautician": "Beautician",
+    "receptionist": "Receptionist",
+    "manager": "Manager"
+  },
+  "actions": {
+    "view": "View profile",
+    "edit": "Edit",
+    "assignShop": "Assign shop",
+    "deactivate": "Deactivate",
+    "delete": "Delete"
+  },
+  "confirm": {
+    "cancel": "Cancel",
+    "deactivate": {
+      "title": "Deactivate staff member?",
+      "description": "{{name}} will be marked inactive and hidden from customer booking flows."
+    },
+    "delete": {
+      "title": "Delete staff member?",
+      "description": "This permanently removes {{name}} from the staff directory. This action cannot be undone."
+    }
+  },
+  "form": {
+    "addTitle": "Add staff member",
+    "editTitle": "Edit staff member",
+    "name": "Full name",
+    "email": "Email",
+    "phone": "Phone",
+    "shop": "Shop",
+    "role": "Role",
+    "status": "Status",
+    "availability": "Availability",
+    "save": "Save changes"
+  },
+  "assignShop": {
+    "title": "Assign shop",
+    "description": "Select the shop where {{name}} will work.",
+    "shopLabel": "Shop",
+    "cancel": "Cancel",
+    "confirm": "Assign shop"
+  },
+  "profile": {
+    "backToList": "Back to staff list"
+  },
+  "tabs": {
+    "skills": "Skills",
+    "working-hours": "Working Hours",
+    "leave": "Leave Calendar",
+    "bookings": "Bookings",
+    "performance": "Performance"
+  },
+  "skills": {
+    "description": "Services this staff member can perform.",
+    "manage": "Toggle assigned skills"
+  },
+  "workingHours": {
+    "open": "Open",
+    "days": {
+      "mon": "Monday",
+      "tue": "Tuesday",
+      "wed": "Wednesday",
+      "thu": "Thursday",
+      "fri": "Friday",
+      "sat": "Saturday",
+      "sun": "Sunday"
+    }
+  },
+  "leave": {
+    "calendarTitle": "Leave calendar",
+    "requestsTitle": "Leave requests",
+    "status": {
+      "approved": "Approved",
+      "pending": "Pending",
+      "rejected": "Rejected"
+    }
+  },
+  "bookings": {
+    "searchPlaceholder": "Search bookings…",
+    "filterStatus": "Status",
+    "columns": {
+      "customer": "Customer",
+      "service": "Service",
+      "status": "Status",
+      "date": "Date",
+      "amount": "Amount"
+    }
+  },
+  "performance": {
+    "period7": "7 days",
+    "period30": "30 days",
+    "totalBookings": "Total bookings",
+    "completionRate": "Completion rate",
+    "averageRating": "Average rating",
+    "cancellations": "Cancellations",
+    "bookingsTrend": "Bookings over time"
+  },
+  "pagination": {
+    "previous": "Previous",
+    "next": "Next",
+    "page": "Page {{current}} of {{total}}",
+    "rowsPerPage": "Rows per page"
+  },
+  "empty": {
+    "list": "No staff members match your filters.",
+    "skills": "No skills assigned yet.",
+    "leave": "No leave requests on record.",
+    "bookings": "No bookings found for this staff member.",
+    "performance": "No performance data available."
+  },
+  "errors": {
+    "staffNotFound": "Staff member not found."
+  }
+}

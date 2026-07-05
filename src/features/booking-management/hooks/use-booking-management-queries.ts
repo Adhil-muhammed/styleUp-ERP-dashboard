@@ -1,14 +1,13 @@
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 
-export function useBookingManagementPageListQuery() {
+import { getBookings } from '@/features/booking-management/api/booking-management-api';
+import { useScope } from '@/shared/hooks/use-scope';
+
+export function useBookingsQuery() {
+  const { merchantId } = useScope();
+
   return useQuery({
-    queryKey: ['booking-management', 'list'],
-    queryFn: (): Promise<void> => Promise.resolve(),
-  });
-}
-
-export function useBookingManagementPageMutation() {
-  return useMutation({
-    mutationFn: (_input: unknown): Promise<void> => Promise.resolve(),
+    queryKey: ['booking-management', 'list', merchantId ?? 'all'],
+    queryFn: () => getBookings(merchantId),
   });
 }

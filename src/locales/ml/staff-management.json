@@ -1,1 +1,148 @@
-{}
+{
+  "page": {
+    "title": "സ്റ്റാഫ് നിയന്ത്രണം",
+    "subtitle": "ഷോപ്പുകളിലെ സ്റ്റാഫ് മാനേജ് ചെയ്യുക"
+  },
+  "columns": {
+    "name": "പേര്",
+    "shop": "ഷോപ്പ്",
+    "role": "റോൾ",
+    "rating": "റേറ്റിംഗ്",
+    "availability": "ലഭ്യത",
+    "status": "സ്റ്റാറ്റസ്",
+    "actions": "പ്രവർത്തനങ്ങൾ"
+  },
+  "list": {
+    "searchPlaceholder": "സ്റ്റാഫ് തിരയുക…",
+    "addStaff": "സ്റ്റാഫ് ചേർക്കുക",
+    "filterAllShops": "എല്ലാ ഷോപ്പുകളും",
+    "filterAllRoles": "എല്ലാ റോളുകളും",
+    "filterAllStatus": "എല്ലാ സ്റ്റാറ്റസും",
+    "filterAllAvailability": "എല്ലാ ലഭ്യതയും"
+  },
+  "status": {
+    "active": "സജീവം",
+    "inactive": "നിഷ്ക്രിയം"
+  },
+  "availability": {
+    "available": "ലഭ്യം",
+    "busy": "തിരക്കിൽ",
+    "off": "ഓഫ് ഡ്യൂട്ടി"
+  },
+  "role": {
+    "senior_stylist": "സീനിയർ സ്റ്റൈലിസ്റ്റ്",
+    "stylist": "സ്റ്റൈലിസ്റ്റ്",
+    "barber": "ബാർബർ",
+    "beautician": "ബ്യൂട്ടീഷ്യൻ",
+    "receptionist": "റിസеп്ഷനിസ്റ്റ്",
+    "manager": "മാനേജർ"
+  },
+  "actions": {
+    "view": "പ്രൊഫൈൽ കാണുക",
+    "edit": "എഡിറ്റ്",
+    "assignShop": "ഷോപ്പ് നിയോഗിക്കുക",
+    "deactivate": "നിഷ്ക്രിയമാക്കുക",
+    "delete": "ഇല്ലാതാക്കുക"
+  },
+  "confirm": {
+    "cancel": "റദ്ദാക്കുക",
+    "deactivate": {
+      "title": "സ്റ്റാഫ് നിഷ്ക്രിയമാക്കണോ?",
+      "description": "{{name}} നിഷ്ക്രിയമായി അടയാളപ്പെടുത്തും."
+    },
+    "delete": {
+      "title": "സ്റ്റാഫ് ഇല്ലാതാക്കണോ?",
+      "description": "{{name}} സ്റ്റാഫ് ഡയറക്ടറിയിൽ നിന്ന് ശാശ്വതമായി നീക്കം ചെയ്യും."
+    }
+  },
+  "form": {
+    "addTitle": "സ്റ്റാഫ് ചേർക്കുക",
+    "editTitle": "സ്റ്റാഫ് എഡിറ്റ് ചെയ്യുക",
+    "name": "പൂർണ്ണ പേര്",
+    "email": "ഇമെയിൽ",
+    "phone": "ഫോൺ",
+    "shop": "ഷോപ്പ്",
+    "role": "റോൾ",
+    "status": "സ്റ്റാറ്റസ്",
+    "availability": "ലഭ്യത",
+    "save": "മാറ്റങ്ങൾ സേവ് ചെയ്യുക"
+  },
+  "assignShop": {
+    "title": "ഷോപ്പ് നിയോഗിക്കുക",
+    "description": "{{name}} ഏത് ഷോപ്പിൽ പ്രവർത്തിക്കുമെന്ന് തിരഞ്ഞെടുക്കുക.",
+    "shopLabel": "ഷോപ്പ്",
+    "cancel": "റദ്ദാക്കുക",
+    "confirm": "ഷോപ്പ് നിയോഗിക്കുക"
+  },
+  "profile": {
+    "backToList": "സ്റ്റാഫ് ലിസ്റ്റിലേക്ക് മടങ്ങുക"
+  },
+  "tabs": {
+    "skills": "സ്കിൽസ്",
+    "working-hours": "വർക്കിംഗ് അവസരങ്ങൾ",
+    "leave": "ലീവ് കലണ്ടർ",
+    "bookings": "ബുക്കിംഗുകൾ",
+    "performance": "പെർഫോമൻസ്"
+  },
+  "skills": {
+    "description": "ഈ സ്റ്റാഫ് നൽകാവുന്ന സേവനങ്ങൾ.",
+    "manage": "സ്കിൽസ് ടോഗിൾ ചെയ്യുക"
+  },
+  "workingHours": {
+    "open": "തുറന്ന",
+    "days": {
+      "mon": "തിങ്കൾ",
+      "tue": "ചൊവ്വ",
+      "wed": "ബുധൻ",
+      "thu": "വ്യാഴം",
+      "fri": "വെള്ളി",
+      "sat": "ശനി",
+      "sun": "ഞായർ"
+    }
+  },
+  "leave": {
+    "calendarTitle": "ലീവ് കലണ്ടർ",
+    "requestsTitle": "ലീവ് അഭ്യർത്ഥനകൾ",
+    "status": {
+      "approved": "അംഗീകരിച്ചു",
+      "pending": "താമസിക്കുന്നു",
+      "rejected": "നിരസിച്ചു"
+    }
+  },
+  "bookings": {
+    "searchPlaceholder": "ബുക്കിംഗുകൾ തിരയുക…",
+    "filterStatus": "സ്റ്റാറ്റസ്",
+    "columns": {
+      "customer": "ഉപഭോക്താവ്",
+      "service": "സേവനം",
+      "status": "സ്റ്റാറ്റസ്",
+      "date": "തീയതി",
+      "amount": "തുക"
+    }
+  },
+  "performance": {
+    "period7": "7 ദിവസം",
+    "period30": "30 ദിവസം",
+    "totalBookings": "മൊത്തം ബുക്കിംഗുകൾ",
+    "completionRate": "പൂർത്തീകരണ നിരക്ക്",
+    "averageRating": "ശരാശരി റേറ്റിംഗ്",
+    "cancellations": "റദ്ദാക്കലുകൾ",
+    "bookingsTrend": "സമയത്തേയ്ക്കുള്ള ബുക്കിംഗുകൾ"
+  },
+  "pagination": {
+    "previous": "മുൻപത്തെ",
+    "next": "അടുത്ത",
+    "page": "പേജ് {{current}} / {{total}}",
+    "rowsPerPage": "ഓരോ പേജിലും വരികൾ"
+  },
+  "empty": {
+    "list": "ഫിൽട്ടറുകൾക്ക് യോജിക്കുന്ന സ്റ്റാഫ് ഒന്നുമില്ല.",
+    "skills": "ഇതുവരെ സ്കിൽസ് നിയോഗിച്ചിട്ടില്ല.",
+    "leave": "ലീവ് അഭ്യർത്ഥനകൾ ഒന്നുമില്ല.",
+    "bookings": "ഈ സ്റ്റാഫിന് ബുക്കിംഗുകൾ ഒന്നുമില്ല.",
+    "performance": "പെർഫോമൻസ് ഡാറ്റ ലഭ്യമല്ല."
+  },
+  "errors": {
+    "staffNotFound": "സ്റ്റാഫ് കണ്ടെത്തിയില്ല."
+  }
+}

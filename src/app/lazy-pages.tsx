@@ -22,6 +22,9 @@ export const MerchantProfilePage = lazy(() =>
 export const StaffManagementPage = lazy(() =>
   import('@/features/staff-management').then((module) => ({ default: module.StaffManagementPage })),
 );
+export const StaffProfilePage = lazy(() =>
+  import('@/features/staff-management').then((module) => ({ default: module.StaffProfilePage })),
+);
 export const ServiceCatalogPage = lazy(() =>
   import('@/features/service-catalog').then((module) => ({ default: module.ServiceCatalogPage })),
 );
@@ -76,4 +79,7 @@ export const RolePermissionPage = lazy(() =>
 );
 export const AuditLogsPage = lazy(() =>
   import('@/features/audit-logs').then((module) => ({ default: module.AuditLogsPage })),
+);
+export const LoginPage = lazy(() =>
+  import('@/features/auth').then((module) => ({ default: module.LoginPage })),
 );

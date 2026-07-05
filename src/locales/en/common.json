@@ -29,7 +29,12 @@
       "auditLogs": "Audit Logs",
       "settings": "System Configuration",
       "roles": "Role & Permission"
-    }
+    },
+    "logout": "Log out"
+  },
+  "scope": {
+    "allShops": "All shops",
+    "selectShop": "Select shop"
   },
   "errors": {
     "loadFailed": "Failed to load data."
