@@ -6,15 +6,13 @@ import { useTranslation } from 'react-i18next';
 
 import type { CustomerListItem, UpdateCustomerInput } from '@/features/user-management/types/customer';
 import { UpdateCustomerSchema } from '@/features/user-management/types/customer';
+import { FormSheetContent } from '@/shared/components/sheet/FormSheetContent';
 import { Button } from '@/shared/components/ui/button';
 import { Input } from '@/shared/components/ui/input';
-import {
-  Sheet,
-  SheetContent,
-  SheetFooter,
-  SheetHeader,
-  SheetTitle,
-} from '@/shared/components/ui/sheet';
+import { Sheet } from '@/shared/components/ui/sheet';
+import { formSheet } from '@/theme/responsive';
+
+const FORM_ID = 'customer-edit-form';
 
 export type CustomerEditSheetProps = {
   customer: CustomerListItem;
@@ -57,15 +55,25 @@ export function CustomerEditSheet({
 
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
-      <SheetContent side="right" className="w-full sm:max-w-md">
-        <SheetHeader>
-          <SheetTitle>{t('actions.edit')}</SheetTitle>
-        </SheetHeader>
+      <FormSheetContent
+        title={t('actions.edit')}
+        footer={
+          <>
+            <Button type="button" variant="outline" onClick={() => onOpenChange(false)}>
+              {t('confirm.cancel')}
+            </Button>
+            <Button type="submit" form={FORM_ID} disabled={isPending}>
+              {t('form.save')}
+            </Button>
+          </>
+        }
+      >
         <form
+          id={FORM_ID}
           onSubmit={(event) => {
             void handleSubmit(event);
           }}
-          className="mt-6 space-y-4"
+          className={formSheet.form}
         >
           <div className="space-y-2">
             <label htmlFor="edit-name" className="text-sm font-medium">
@@ -94,13 +102,8 @@ export function CustomerEditSheet({
               <p className="text-sm text-destructive">{t('errors.phoneRequired')}</p>
             ) : null}
           </div>
-          <SheetFooter>
-            <Button type="submit" disabled={isPending}>
-              {t('form.save')}
-            </Button>
-          </SheetFooter>
         </form>
-      </SheetContent>
+      </FormSheetContent>
     </Sheet>
   );
 }

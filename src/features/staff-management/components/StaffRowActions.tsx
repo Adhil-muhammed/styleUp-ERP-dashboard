@@ -4,8 +4,8 @@ import type React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
-import { AssignShopSheet } from '@/features/staff-management/components/AssignShopSheet';
-import { StaffFormSheet } from '@/features/staff-management/components/StaffFormSheet';
+import { AssignShopSheet } from './AssignShopSheet';
+import { StaffFormSheet } from './StaffFormSheet';
 import {
   useDeleteStaffMutation,
   useUpdateStaffStatusMutation,

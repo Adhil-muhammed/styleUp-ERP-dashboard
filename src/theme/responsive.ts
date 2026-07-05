@@ -70,3 +70,12 @@ export const nav = {
 export const table = {
   breakpointToCardView: 'md',
 } as const;
+
+/** Right-side row-edit / create form sheets (User, Staff modules). Mirrors AppShell drawer partition. */
+export const formSheet = {
+  content: 'flex min-h-0 w-full flex-col gap-0 overflow-hidden p-0 sm:max-w-md',
+  header: 'shrink-0 gap-0.5 border-b p-4 pr-12',
+  body: 'min-h-0 flex-1 overflow-y-auto px-4 py-4',
+  form: 'space-y-4',
+  footer: 'mt-0 shrink-0 flex flex-col gap-2 border-t p-4 sm:flex-row sm:justify-end',
+} as const;

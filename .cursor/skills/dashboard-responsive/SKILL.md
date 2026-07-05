@@ -18,9 +18,10 @@ Any task touching dashboard UI: new module page, new chart, new card, new table,
 5. For new tables: use `ResponsiveTable` — it auto-switches to card view below md via `useResponsive`. Do not build a separate mobile table manually.
 6. For new grids/sections: use `ResponsiveGrid` with a `preset` prop (`kpiCards`, `twoColumnCharts`, `activityPanels`) instead of writing raw grid-cols classes.
 7. For navigation below lg: use the `SidebarProvider` + Sheet drawer pattern in `AppShell`; persistent sidebar at lg+.
-8. For tabbed panels on mobile: prefer Accordion below lg, Tabs at lg+ (see `RecentActivityPanel`).
-9. After implementation, verify at sm/md/lg/xl using browser devtools.
-10. If a genuinely new responsive pattern is needed, add the token/utility to `src/theme/responsive.ts` first, document it here, then use it.
+8. For row-edit / create form sheets: use `FormSheetContent` from `@/shared/components/sheet/FormSheetContent` with `formSheet` tokens from theme — sticky header/footer, scrollable body, full-width below sm.
+9. For tabbed panels on mobile: prefer Accordion below lg, Tabs at lg+ (see `RecentActivityPanel`).
+10. After implementation, verify at sm/md/lg/xl using browser devtools.
+11. If a genuinely new responsive pattern is needed, add the token/utility to `src/theme/responsive.ts` first, document it here, then use it.
 
 ## Anti-patterns to reject
 

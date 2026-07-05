@@ -17,6 +17,7 @@ import {
 } from '@/features/staff-management/types/staff.schema';
 import type { StaffListItem } from '@/features/staff-management/types/staff';
 import { STAFF_ROLES } from '@/features/staff-management/types/staff';
+import { FormSheetContent } from '@/shared/components/sheet/FormSheetContent';
 import { Button } from '@/shared/components/ui/button';
 import { Input } from '@/shared/components/ui/input';
 import {
@@ -26,16 +27,13 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/shared/components/ui/select';
-import {
-  Sheet,
-  SheetContent,
-  SheetFooter,
-  SheetHeader,
-  SheetTitle,
-} from '@/shared/components/ui/sheet';
+import { Sheet } from '@/shared/components/ui/sheet';
 import { useScope } from '@/shared/hooks/use-scope';
+import { formSheet } from '@/theme/responsive';
 
 const SHOP_OPTIONS = shopsFixture.slice(0, 4);
+const CREATE_FORM_ID = 'staff-create-form';
+const EDIT_FORM_ID = 'staff-edit-form';
 
 type StaffFormSheetProps =
   | {
@@ -62,6 +60,7 @@ export function StaffFormSheet(props: StaffFormSheetProps): React.ReactElement {
 
   const isCreate = mode === 'create';
   const isPending = createMutation.isPending || updateMutation.isPending;
+  const formId = isCreate ? CREATE_FORM_ID : EDIT_FORM_ID;
 
   const createForm = useForm<CreateStaffInput>({
     resolver: zodResolver(CreateStaffSchema),
@@ -124,14 +123,23 @@ export function StaffFormSheet(props: StaffFormSheetProps): React.ReactElement {
 
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
-      <SheetContent side="right" className="w-full overflow-y-auto sm:max-w-md">
-        <SheetHeader>
-          <SheetTitle>{isCreate ? t('form.addTitle') : t('form.editTitle')}</SheetTitle>
-        </SheetHeader>
-
+      <FormSheetContent
+        title={isCreate ? t('form.addTitle') : t('form.editTitle')}
+        footer={
+          <>
+            <Button type="button" variant="outline" onClick={() => onOpenChange(false)}>
+              {t('confirm.cancel')}
+            </Button>
+            <Button type="submit" form={formId} disabled={isPending}>
+              {t('form.save')}
+            </Button>
+          </>
+        }
+      >
         {isCreate ? (
           <form
-            className="mt-6 space-y-4"
+            id={CREATE_FORM_ID}
+            className={formSheet.form}
             onSubmit={(event) => {
               void handleCreate(event);
             }}
@@ -191,15 +199,11 @@ export function StaffFormSheet(props: StaffFormSheetProps): React.ReactElement {
                 { value: 'off', label: t('availability.off') },
               ]}
             />
-            <SheetFooter className="px-0">
-              <Button type="submit" disabled={isPending}>
-                {t('form.save')}
-              </Button>
-            </SheetFooter>
           </form>
         ) : (
           <form
-            className="mt-6 space-y-4"
+            id={EDIT_FORM_ID}
+            className={formSheet.form}
             onSubmit={(event) => {
               void handleEdit(event);
             }}
@@ -240,14 +244,9 @@ export function StaffFormSheet(props: StaffFormSheetProps): React.ReactElement {
                 { value: 'off', label: t('availability.off') },
               ]}
             />
-            <SheetFooter className="px-0">
-              <Button type="submit" disabled={isPending}>
-                {t('form.save')}
-              </Button>
-            </SheetFooter>
           </form>
         )}
-      </SheetContent>
+      </FormSheetContent>
     </Sheet>
   );
 }

@@ -29,7 +29,9 @@ import type { WorkingHours } from '@/features/staff-management/types/staff-worki
 import { ROUTES } from '@/shared/config/routes';
 import { useScope } from '@/shared/hooks/use-scope';
 
-export function useStaffListQuery(params: Omit<StaffListParams, 'merchantId'> & { merchantId?: string | null }) {
+export function useStaffListQuery(
+  params: Omit<StaffListParams, 'merchantId'> & { merchantId?: string | null }
+) {
   const { merchantId: scopeMerchantId } = useScope();
   const effectiveMerchantId = params.merchantId ?? scopeMerchantId;
 

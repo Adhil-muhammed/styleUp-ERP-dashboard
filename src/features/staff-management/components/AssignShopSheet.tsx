@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { shopsFixture } from '@/features/merchant-management/api/fixtures/shops.fixture';
 import { useAssignStaffShopMutation } from '@/features/staff-management/hooks/use-staff-management-queries';
 import type { StaffListItem } from '@/features/staff-management/types/staff';
+import { FormSheetContent } from '@/shared/components/sheet/FormSheetContent';
 import { Button } from '@/shared/components/ui/button';
 import {
   Select,
@@ -13,13 +14,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/shared/components/ui/select';
-import {
-  Sheet,
-  SheetContent,
-  SheetFooter,
-  SheetHeader,
-  SheetTitle,
-} from '@/shared/components/ui/sheet';
+import { Sheet } from '@/shared/components/ui/sheet';
+import { formSheet } from '@/theme/responsive';
 
 const SHOP_OPTIONS = shopsFixture.slice(0, 4);
 
@@ -38,24 +34,26 @@ export function AssignShopSheet({
 
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
-      <SheetContent side="right" className="w-full sm:max-w-md">
-        <SheetHeader>
-          <SheetTitle>{t('assignShop.title')}</SheetTitle>
-        </SheetHeader>
-        {open ? (
-          <AssignShopSheetForm key={staff.id} staff={staff} onOpenChange={onOpenChange} />
-        ) : null}
-      </SheetContent>
+      {open ? (
+        <AssignShopSheetContent
+          key={staff.id}
+          staff={staff}
+          onOpenChange={onOpenChange}
+          title={t('assignShop.title')}
+        />
+      ) : null}
     </Sheet>
   );
 }
 
-function AssignShopSheetForm({
+function AssignShopSheetContent({
   staff,
   onOpenChange,
+  title,
 }: {
   staff: StaffListItem;
   onOpenChange: (open: boolean) => void;
+  title: string;
 }): React.ReactElement {
   const { t } = useTranslation('staff-management');
   const [merchantId, setMerchantId] = useState(staff.merchantId);
@@ -66,8 +64,20 @@ function AssignShopSheetForm({
   };
 
   return (
-    <>
-      <div className="mt-6 space-y-4">
+    <FormSheetContent
+      title={title}
+      footer={
+        <>
+          <Button type="button" variant="outline" onClick={() => onOpenChange(false)}>
+            {t('assignShop.cancel')}
+          </Button>
+          <Button type="button" disabled={mutation.isPending} onClick={handleSubmit}>
+            {t('assignShop.confirm')}
+          </Button>
+        </>
+      }
+    >
+      <div className={formSheet.form}>
         <p className="text-sm text-muted-foreground">
           {t('assignShop.description', { name: staff.name })}
         </p>
@@ -87,14 +97,6 @@ function AssignShopSheetForm({
           </Select>
         </div>
       </div>
-      <SheetFooter className="mt-6">
-        <Button variant="outline" onClick={() => onOpenChange(false)}>
-          {t('assignShop.cancel')}
-        </Button>
-        <Button disabled={mutation.isPending} onClick={handleSubmit}>
-          {t('assignShop.confirm')}
-        </Button>
-      </SheetFooter>
-    </>
+    </FormSheetContent>
   );
 }

@@ -63,7 +63,9 @@ export function StaffTable(): React.ReactElement {
     setPagination((current) => ({ ...current, pageIndex: 0 }));
   };
 
-  const queryParams = useMemo((): Omit<StaffListParams, 'merchantId'> & { merchantId?: string | null } => {
+  const queryParams = useMemo((): Omit<StaffListParams, 'merchantId'> & {
+    merchantId?: string | null;
+  } => {
     const sort = sorting[0];
     return {
       page: pagination.pageIndex + 1,
