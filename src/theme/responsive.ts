@@ -69,6 +69,7 @@ export const nav = {
 
 export const table = {
   breakpointToCardView: 'md',
+  filterGrid: 'grid w-full grid-cols-1 gap-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4',
 } as const;
 
 /** Right-side row-edit / create form sheets (User, Staff modules). Mirrors AppShell drawer partition. */

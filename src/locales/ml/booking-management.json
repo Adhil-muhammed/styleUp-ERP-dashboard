@@ -1,22 +1,131 @@
 {
   "page": {
-    "title": "ബുക്കിംഗ് നിയന്ത്രണം",
-    "subtitleAdmin": "{{scope}} എന്നതിനുള്ള ബുക്കിംഗുകൾ",
-    "subtitleOwner": "നിങ്ങളുടെ ഷോപ്പിന്റെ ബുക്കിംഗുകൾ"
+    "title": "Booking Management",
+    "subtitleAdmin": "Showing bookings for {{scope}}",
+    "subtitleOwner": "Bookings for your shop"
   },
   "scope": {
-    "allShops": "എല്ലാ ഷോപ്പുകളും",
-    "singleShop": "ഷോപ്പ് {{shopId}}"
+    "allShops": "all shops",
+    "singleShop": "shop {{shopId}}"
   },
   "list": {
-    "title": "{{count}} ബുക്കിംഗുകൾ",
-    "customer": "ഉപഭോക്താവ്",
-    "service": "സേവനം",
-    "staff": "സ്റ്റാഫ്",
-    "status": "സ്റ്റാറ്റസ്",
-    "paymentStatus": "പേയ്‌മെന്റ്"
+    "title": "{{count}} bookings",
+    "customer": "Customer",
+    "shop": "Shop",
+    "staff": "Staff",
+    "serviceOrPackage": "Service / Package",
+    "dateTime": "Date & Time",
+    "status": "Status",
+    "paymentStatus": "Payment",
+    "amount": "Amount",
+    "actions": "Actions",
+    "searchPlaceholder": "Search bookings…",
+    "filterStatus": "Status",
+    "filterAllStatus": "All statuses",
+    "filterShop": "Shop",
+    "filterAllShops": "All shops",
+    "filterStaff": "Staff",
+    "filterAllStaff": "All staff",
+    "filterDateFrom": "From date",
+    "filterDateTo": "To date",
+    "filterCustomerPlaceholder": "Customer name or phone…",
+    "filterPayment": "Payment status",
+    "filterAllPayment": "All payment statuses"
+  },
+  "status": {
+    "pending": "Pending",
+    "confirmed": "Confirmed",
+    "upcoming": "Upcoming",
+    "completed": "Completed",
+    "cancelled": "Cancelled",
+    "no_show": "No Show"
+  },
+  "paymentStatus": {
+    "paid": "Paid",
+    "pending": "Pending",
+    "partially_paid": "Partially Paid",
+    "failed": "Failed",
+    "refunded": "Refunded"
   },
   "empty": {
-    "list": "ഈ സ്കോപ്പിന് ബുക്കിംഗുകൾ ഒന്നും കണ്ടെത്തിയില്ല."
+    "list": "No bookings found for this scope."
+  },
+  "pagination": {
+    "previous": "Previous",
+    "next": "Next",
+    "page": "Page {{current}} of {{total}}",
+    "rowsPerPage": "Rows per page"
+  },
+  "actions": {
+    "viewDetails": "View details",
+    "confirm": "Confirm",
+    "reschedule": "Reschedule",
+    "cancel": "Cancel",
+    "complete": "Complete",
+    "noShow": "Mark No Show",
+    "saveNotes": "Save notes",
+    "dismiss": "Dismiss",
+    "readOnly": "You have view-only access to bookings.",
+    "noActionsAvailable": "No actions available for this booking.",
+    "completeDisabledHint": "Available after the scheduled start time",
+    "noShowDisabledHint": "Available after the scheduled start time"
+  },
+  "details": {
+    "title": "Booking {{id}}",
+    "loadingTitle": "Booking details",
+    "customer": "Customer",
+    "service": "Service",
+    "package": "Package",
+    "specialist": "Specialist",
+    "timeline": "Timeline",
+    "payment": "Payment",
+    "notes": "Notes",
+    "serviceName": "Service",
+    "category": "Category",
+    "duration": "Duration",
+    "durationMinutes": "{{count}} min",
+    "price": "Price",
+    "amount": "Amount",
+    "paymentMethod": "Payment method",
+    "transactionId": "Transaction ID",
+    "includedServices": "Included services",
+    "customerNotes": "Customer notes",
+    "internalNotes": "Internal notes",
+    "internalNotesPlaceholder": "Add internal notes for staff…",
+    "noInternalNotes": "No internal notes",
+    "noServiceInfo": "No service details available",
+    "noPackageInfo": "No package details available"
+  },
+  "timeline": {
+    "created": "Booking created",
+    "confirmed": "Confirmed",
+    "rescheduled": "Rescheduled",
+    "completed": "Completed",
+    "cancelled": "Cancelled",
+    "no_show": "Marked as no show"
+  },
+  "confirm": {
+    "reasonLabel": "Reason (optional)",
+    "reasonPlaceholder": "Add a reason…",
+    "confirm": {
+      "title": "Confirm booking?",
+      "description": "Mark {{customer}}'s booking as confirmed."
+    },
+    "complete": {
+      "title": "Complete booking?",
+      "description": "Mark {{customer}}'s booking as completed."
+    },
+    "cancel": {
+      "title": "Cancel booking?",
+      "description": "Cancel {{customer}}'s booking. This action cannot be undone."
+    },
+    "noShow": {
+      "title": "Mark as no show?",
+      "description": "Mark {{customer}} as a no-show for this booking."
+    }
+  },
+  "reschedule": {
+    "title": "Reschedule booking",
+    "dateTime": "New date & time"
   }
 }

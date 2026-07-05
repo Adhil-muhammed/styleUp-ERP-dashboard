@@ -40,6 +40,7 @@ export type DataTableProps<TData> = {
   onSortingChange?: OnChangeFn<SortingState>;
   manualSorting?: boolean;
   className?: string;
+  onRowClick?: (row: TData) => void;
 };
 
 export function DataTable<TData>({
@@ -60,6 +61,7 @@ export function DataTable<TData>({
   onSortingChange,
   manualSorting = false,
   className,
+  onRowClick,
 }: DataTableProps<TData>): React.ReactElement {
   const { width } = useResponsive();
   const useCardView = width < breakpoints.md && renderMobileCard !== undefined;
@@ -99,7 +101,25 @@ export function DataTable<TData>({
       ) : useCardView ? (
         <div className="space-y-3" data-testid="data-table-cards">
           {data.map((row) => (
-            <div key={getRowId(row)}>{renderMobileCard(row)}</div>
+            <div
+              key={getRowId(row)}
+              className={onRowClick ? 'cursor-pointer' : undefined}
+              onClick={onRowClick ? () => onRowClick(row) : undefined}
+              onKeyDown={
+                onRowClick
+                  ? (event) => {
+                      if (event.key === 'Enter' || event.key === ' ') {
+                        event.preventDefault();
+                        onRowClick(row);
+                      }
+                    }
+                  : undefined
+              }
+              role={onRowClick ? 'button' : undefined}
+              tabIndex={onRowClick ? 0 : undefined}
+            >
+              {renderMobileCard(row)}
+            </div>
           ))}
         </div>
       ) : (
@@ -133,7 +153,14 @@ export function DataTable<TData>({
                 </tr>
               ) : (
                 table.getRowModel().rows.map((row) => (
-                  <tr key={row.id} className="border-b last:border-b-0">
+                  <tr
+                    key={row.id}
+                    className={cn(
+                      'border-b last:border-b-0',
+                      onRowClick && 'cursor-pointer hover:bg-muted/50',
+                    )}
+                    onClick={onRowClick ? () => onRowClick(row.original) : undefined}
+                  >
                     {row.getVisibleCells().map((cell) => (
                       <td key={cell.id} className="p-3 align-middle">
                         {flexRender(cell.column.columnDef.cell, cell.getContext())}

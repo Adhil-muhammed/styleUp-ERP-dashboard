@@ -19,10 +19,15 @@ export function DataTableToolbar({
   filterSlot,
   className,
 }: DataTableToolbarProps): React.ReactElement {
+  const hasFilters = Boolean(filterSlot);
+
   return (
     <div
       className={cn(
-        'flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between',
+        'flex flex-col gap-3',
+        hasFilters
+          ? 'lg:flex-row lg:items-start lg:justify-between'
+          : 'sm:flex-row sm:items-center sm:justify-between',
         className,
       )}
       data-testid="data-table-toolbar"
@@ -31,10 +36,10 @@ export function DataTableToolbar({
         value={globalFilter}
         onChange={(event) => onGlobalFilterChange(event.target.value)}
         placeholder={searchPlaceholder}
-        className="w-full sm:max-w-xs"
+        className={cn('w-full shrink-0', hasFilters ? 'lg:max-w-xs' : 'sm:max-w-xs')}
         aria-label={searchPlaceholder}
       />
-      {filterSlot ? <div className="shrink-0">{filterSlot}</div> : null}
+      {filterSlot ? <div className="min-w-0 w-full lg:flex-1">{filterSlot}</div> : null}
     </div>
   );
 }
