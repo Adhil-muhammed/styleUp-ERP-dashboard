@@ -1,5 +1,6 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useFieldArray, useForm } from 'react-hook-form';
+import { useMemo } from 'react';
 import type React from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -41,7 +42,33 @@ export function RecurringPatternEditor({
   const { t } = useTranslation('calendar-scheduling');
   const createMutation = useCreateRecurringPatternMutation();
   const updateMutation = useUpdateRecurringPatternMutation(pattern?.id ?? '');
-  const staffOptions = staffFixture.filter((s) => s.merchantId === shopId);
+  const staffOptions = useMemo(
+    () => staffFixture.filter((s) => s.merchantId === shopId),
+    [shopId],
+  );
+
+  const editValues = useMemo(
+    () =>
+      pattern
+        ? {
+            shopId: pattern.shopId,
+            staffId: pattern.staffId,
+            label: pattern.label,
+            effectiveFrom: pattern.effectiveFrom.slice(0, 10),
+            effectiveTo: pattern.effectiveTo?.slice(0, 10),
+            schedule: pattern.schedule,
+          }
+        : undefined,
+    [
+      pattern?.id,
+      pattern?.shopId,
+      pattern?.staffId,
+      pattern?.label,
+      pattern?.effectiveFrom,
+      pattern?.effectiveTo,
+      pattern?.schedule,
+    ],
+  );
 
   const form = useForm<RecurringPatternFormInput>({
     resolver: zodResolver(RecurringPatternSchema),
@@ -52,16 +79,7 @@ export function RecurringPatternEditor({
       effectiveFrom: new Date().toISOString().slice(0, 10),
       schedule: [{ day: 'mon', ranges: [{ openTime: '09:00', closeTime: '18:00' }] }],
     },
-    values: pattern
-      ? {
-          shopId: pattern.shopId,
-          staffId: pattern.staffId,
-          label: pattern.label,
-          effectiveFrom: pattern.effectiveFrom.slice(0, 10),
-          effectiveTo: pattern.effectiveTo?.slice(0, 10),
-          schedule: pattern.schedule,
-        }
-      : undefined,
+    values: editValues,
   });
 
   const { fields, append, remove } = useFieldArray({ control: form.control, name: 'schedule' });

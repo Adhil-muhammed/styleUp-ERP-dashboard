@@ -1,4 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useMemo } from 'react';
 import { useForm } from 'react-hook-form';
 import type React from 'react';
 import { useTranslation } from 'react-i18next';
@@ -53,6 +54,21 @@ export function BlockedSlotFormSheet({
   const createMutation = useCreateBlockedSlotMutation();
   const updateMutation = useUpdateBlockedSlotMutation(slot?.id ?? '');
 
+  const editValues = useMemo(
+    () =>
+      slot
+        ? {
+            scope: slot.scope,
+            shopId: slot.shopId,
+            staffId: slot.staffId,
+            start: toDatetimeLocal(slot.start),
+            end: toDatetimeLocal(slot.end),
+            reason: slot.reason,
+          }
+        : undefined,
+    [slot?.id, slot?.scope, slot?.shopId, slot?.staffId, slot?.start, slot?.end, slot?.reason],
+  );
+
   const form = useForm<BlockedSlotFormInput>({
     resolver: zodResolver(BlockedSlotSchema),
     defaultValues: {
@@ -62,16 +78,7 @@ export function BlockedSlotFormSheet({
       end: toDatetimeLocal(defaultEnd),
       reason: '',
     },
-    values: slot
-      ? {
-          scope: slot.scope,
-          shopId: slot.shopId,
-          staffId: slot.staffId,
-          start: toDatetimeLocal(slot.start),
-          end: toDatetimeLocal(slot.end),
-          reason: slot.reason,
-        }
-      : undefined,
+    values: editValues,
   });
 
   const onSubmit = form.handleSubmit((values) => {

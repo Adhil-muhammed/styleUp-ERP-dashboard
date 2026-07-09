@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import type React from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -52,6 +52,12 @@ export function StaffCalendarTab(): React.ReactElement {
     [calendars],
   );
 
+  const handleRangeChange = useCallback((start: string, end: string) => {
+    setRange((prev) =>
+      prev.start === start && prev.end === end ? prev : { start, end },
+    );
+  }, []);
+
   const queryParams = useMemo(
     () => ({
       shopId,
@@ -93,7 +99,7 @@ export function StaffCalendarTab(): React.ReactElement {
         onViewChange={setView}
         date={date}
         onDateChange={setDate}
-        onRangeChange={(start, end) => setRange({ start, end })}
+        onRangeChange={handleRangeChange}
         onEventClick={handleEventClick}
         onCalendarToggle={handleCalendarToggle}
         readOnly={!canManage}

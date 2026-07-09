@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import type React from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -25,11 +25,22 @@ export function ShopCalendarTab(): React.ReactElement {
   const [shopId, setShopId] = useState(merchantId ?? shopsFixture[0]?.id ?? '');
   const [view, setView] = useState<CalendarViewMode>('month');
   const [date, setDate] = useState(new Date());
-  const [range, setRange] = useState({ start: new Date().toISOString(), end: new Date().toISOString() });
+  const [range, setRange] = useState({
+    start: new Date().toISOString(),
+    end: new Date().toISOString(),
+  });
   const [selectedBookingId, setSelectedBookingId] = useState<string | null>(null);
   const [detailsOpen, setDetailsOpen] = useState(false);
   const [manualOpen, setManualOpen] = useState(false);
   const [manualStart, setManualStart] = useState<string | undefined>();
+
+  const shopCalendars = useMemo(() => buildShopCalendars(), []);
+
+  const handleRangeChange = useCallback((start: string, end: string) => {
+    setRange((prev) =>
+      prev.start === start && prev.end === end ? prev : { start, end },
+    );
+  }, []);
 
   const queryParams = useMemo(
     () => ({
@@ -38,7 +49,7 @@ export function ShopCalendarTab(): React.ReactElement {
       rangeEnd: range.end,
       kinds: ['booking', 'holiday', 'blocked'] as const,
     }),
-    [shopId, range.start, range.end],
+    [shopId, range.start, range.end]
   );
 
   const { data, isPending, isFetching, isError } = useCalendarEventsQuery({
@@ -66,15 +77,15 @@ export function ShopCalendarTab(): React.ReactElement {
   return (
     <div className="space-y-4">
       <ShopStaffSelector shopId={shopId} onShopChange={setShopId} />
-      <CalendarLegend calendars={buildShopCalendars()} />
+      <CalendarLegend calendars={shopCalendars} />
       <CalendarView
         events={data ?? []}
-        calendars={buildShopCalendars()}
+        calendars={shopCalendars}
         view={view}
         onViewChange={setView}
         date={date}
         onDateChange={setDate}
-        onRangeChange={(start, end) => setRange({ start, end })}
+        onRangeChange={handleRangeChange}
         onEventClick={handleEventClick}
         onEventCreate={handleEventCreate}
         readOnly={!canManage}
@@ -82,6 +93,8 @@ export function ShopCalendarTab(): React.ReactElement {
         emptyTitle={t('empty.calendar')}
         emptyDescription={canManage ? t('empty.calendarCta') : undefined}
         emptyActionLabel={canManage ? t('manualBooking.title') : undefined}
+        // Inline callback is safe: consumer does not use this in a useEffect dep array.
+        // If that changes, stabilize with useCallback — see .cursor/rules/095-react-effect-hygiene.mdc
         onEmptyAction={canManage ? () => handleEventCreate(new Date()) : undefined}
       />
 

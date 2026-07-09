@@ -1,5 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useForm } from 'react-hook-form';
 import type React from 'react';
 import { useTranslation } from 'react-i18next';
@@ -46,7 +46,11 @@ export function ManualBookingSheet({
 }: ManualBookingSheetProps): React.ReactElement {
   const { t } = useTranslation('calendar-scheduling');
   const mutation = useCreateBookingMutation();
-  const staffOptions = staffFixture.filter((s) => s.merchantId === shopId);
+  const staffOptions = useMemo(
+    () => staffFixture.filter((s) => s.merchantId === shopId),
+    [shopId],
+  );
+  const defaultStaffIdResolved = defaultStaffId ?? staffOptions[0]?.id ?? '';
 
   const form = useForm<ManualBookingFormInput>({
     resolver: zodResolver(ManualBookingSchema),
@@ -54,7 +58,7 @@ export function ManualBookingSheet({
       shopId,
       customerName: '',
       customerPhone: '',
-      staffId: defaultStaffId ?? staffOptions[0]?.id ?? '',
+      staffId: defaultStaffIdResolved,
       serviceName: '',
       scheduledAt: toDatetimeLocal(defaultStart),
       durationMinutes: 60,
@@ -63,19 +67,18 @@ export function ManualBookingSheet({
   });
 
   useEffect(() => {
-    if (open) {
-      form.reset({
-        shopId,
-        customerName: '',
-        customerPhone: '',
-        staffId: defaultStaffId ?? staffOptions[0]?.id ?? '',
-        serviceName: '',
-        scheduledAt: toDatetimeLocal(defaultStart),
-        durationMinutes: 60,
-        amount: 0,
-      });
-    }
-  }, [open, shopId, defaultStart, defaultStaffId, form, staffOptions]);
+    if (!open) return;
+    form.reset({
+      shopId,
+      customerName: '',
+      customerPhone: '',
+      staffId: defaultStaffIdResolved,
+      serviceName: '',
+      scheduledAt: toDatetimeLocal(defaultStart),
+      durationMinutes: 60,
+      amount: 0,
+    });
+  }, [open, shopId, defaultStart, defaultStaffId, defaultStaffIdResolved]);
 
   const onSubmit = form.handleSubmit((values) => {
     mutation.mutate(values, { onSuccess: () => onOpenChange(false) });

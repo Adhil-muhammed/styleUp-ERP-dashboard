@@ -1,4 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useMemo } from 'react';
 import { useForm } from 'react-hook-form';
 import type React from 'react';
 import { useTranslation } from 'react-i18next';
@@ -43,6 +44,31 @@ export function HolidayFormSheet({
   const createMutation = useCreateHolidayMutation();
   const updateMutation = useUpdateHolidayMutation(holiday?.id ?? '');
 
+  const editValues = useMemo(
+    () =>
+      holiday
+        ? {
+            scope: holiday.scope,
+            shopId: holiday.shopId,
+            staffId: holiday.staffId,
+            name: holiday.name,
+            startDate: holiday.startDate,
+            endDate: holiday.endDate,
+            recurringYearly: holiday.recurringYearly,
+          }
+        : undefined,
+    [
+      holiday?.id,
+      holiday?.scope,
+      holiday?.shopId,
+      holiday?.staffId,
+      holiday?.name,
+      holiday?.startDate,
+      holiday?.endDate,
+      holiday?.recurringYearly,
+    ],
+  );
+
   const form = useForm<HolidayFormInput>({
     resolver: zodResolver(HolidaySchema),
     defaultValues: {
@@ -53,17 +79,7 @@ export function HolidayFormSheet({
       endDate: '',
       recurringYearly: false,
     },
-    values: holiday
-      ? {
-          scope: holiday.scope,
-          shopId: holiday.shopId,
-          staffId: holiday.staffId,
-          name: holiday.name,
-          startDate: holiday.startDate,
-          endDate: holiday.endDate,
-          recurringYearly: holiday.recurringYearly,
-        }
-      : undefined,
+    values: editValues,
   });
 
   const onSubmit = form.handleSubmit((values) => {

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import type React from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -18,9 +18,11 @@ export function BookingNotesSection({ data }: BookingNotesSectionProps): React.R
   const ability = usePermissions();
   const canManage = ability.can('manage', PERMISSIONS.bookings.manage);
   const [internalNotes, setInternalNotes] = useState(data.internalNotes);
+  const isFocusedRef = useRef(false);
   const mutation = useUpdateBookingNotesMutation(data.id);
 
   useEffect(() => {
+    if (isFocusedRef.current) return;
     setInternalNotes(data.internalNotes);
   }, [data.internalNotes, data.id]);
 
@@ -40,6 +42,13 @@ export function BookingNotesSection({ data }: BookingNotesSectionProps): React.R
             <Textarea
               value={internalNotes}
               onChange={(event) => setInternalNotes(event.target.value)}
+              onFocus={() => {
+                isFocusedRef.current = true;
+              }}
+              onBlur={() => {
+                isFocusedRef.current = false;
+                setInternalNotes(data.internalNotes);
+              }}
               rows={3}
               placeholder={t('details.internalNotesPlaceholder')}
             />

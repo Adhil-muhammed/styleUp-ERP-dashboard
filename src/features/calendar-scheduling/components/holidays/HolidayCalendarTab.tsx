@@ -1,5 +1,5 @@
 import { format } from 'date-fns';
-import { useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import type React from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -42,6 +42,14 @@ export function HolidayCalendarTab(): React.ReactElement {
   const [conflictOpen, setConflictOpen] = useState(false);
   const [conflicts, setConflicts] = useState<HolidayConflict[]>([]);
   const [pendingHoliday, setPendingHoliday] = useState<Holiday | null>(null);
+
+  const holidayCalendars = useMemo(() => buildHolidayCalendars(), []);
+
+  const handleRangeChange = useCallback((start: string, end: string) => {
+    setRange((prev) =>
+      prev.start === start && prev.end === end ? prev : { start, end },
+    );
+  }, []);
 
   const { data: holidays, isPending: listPending } = useHolidaysQuery(shopId);
   const { data: events, isPending: calPending, isFetching, isError } = useCalendarEventsQuery({
@@ -99,18 +107,18 @@ export function HolidayCalendarTab(): React.ReactElement {
           <TabsTrigger value="list">{t('holidays.viewList')}</TabsTrigger>
         </TabsList>
         <TabsContent value="calendar" className="mt-4 space-y-4">
-          <CalendarLegend calendars={buildHolidayCalendars()} />
+          <CalendarLegend calendars={holidayCalendars} />
           {isError ? (
             <p className="text-sm text-destructive">{t('empty.calendar')}</p>
           ) : (
             <CalendarView
               events={events ?? []}
-              calendars={buildHolidayCalendars()}
+              calendars={holidayCalendars}
               view={view}
               onViewChange={setView}
               date={date}
               onDateChange={setDate}
-              onRangeChange={(start, end) => setRange({ start, end })}
+              onRangeChange={handleRangeChange}
               onEventClick={handleEventClick}
               onEventCreate={handleEventCreate}
               readOnly={!canManage}

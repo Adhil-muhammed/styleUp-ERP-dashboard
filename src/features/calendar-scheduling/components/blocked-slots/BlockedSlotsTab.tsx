@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import type React from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -36,6 +36,14 @@ export function BlockedSlotsTab(): React.ReactElement {
   const [editSlot, setEditSlot] = useState<BlockedSlot | undefined>();
   const [selectStart, setSelectStart] = useState<string | undefined>();
   const [selectEnd, setSelectEnd] = useState<string | undefined>();
+
+  const blockedCalendars = useMemo(() => buildBlockedCalendars(), []);
+
+  const handleRangeChange = useCallback((start: string, end: string) => {
+    setRange((prev) =>
+      prev.start === start && prev.end === end ? prev : { start, end },
+    );
+  }, []);
 
   const queryParams = { shopId, rangeStart: range.start, rangeEnd: range.end, kinds: ['blocked'] as const };
   const { data: events, isPending, isFetching, isError } = useCalendarEventsQuery({
@@ -79,25 +87,29 @@ export function BlockedSlotsTab(): React.ReactElement {
           </Button>
         ) : null}
       </div>
-      <CalendarLegend calendars={buildBlockedCalendars()} />
+      <CalendarLegend calendars={blockedCalendars} />
       <div className="grid gap-4 lg:grid-cols-[1fr_20rem]">
         {isError ? (
           <p className="text-sm text-destructive">{t('empty.calendar')}</p>
         ) : (
           <CalendarView
             events={events ?? []}
-            calendars={buildBlockedCalendars()}
+            calendars={blockedCalendars}
             view={view}
             onViewChange={setView}
             date={date}
             onDateChange={setDate}
-            onRangeChange={(start, end) => setRange({ start, end })}
+            onRangeChange={handleRangeChange}
             onEventClick={handleEventClick}
+            // Inline callback is safe: consumer does not use this in a useEffect dep array.
+            // If that changes, stabilize with useCallback — see .cursor/rules/095-react-effect-hygiene.mdc
             onEventCreate={(initialDate) => openCreateForm(initialDate)}
             readOnly={!canManage}
             isLoading={isPending || isFetching}
             emptyTitle={t('blocked.empty')}
             emptyActionLabel={canManage ? t('blocked.add') : undefined}
+            // Inline callback is safe: consumer does not use this in a useEffect dep array.
+            // If that changes, stabilize with useCallback — see .cursor/rules/095-react-effect-hygiene.mdc
             onEmptyAction={canManage ? () => openCreateForm(new Date()) : undefined}
           />
         )}

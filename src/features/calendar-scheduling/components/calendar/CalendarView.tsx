@@ -1,6 +1,6 @@
 import { BasicScheduler } from 'calendarkit-basic';
 import type { ViewType } from 'calendarkit-basic';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import type React from 'react';
 
 import { findScheduleEvent } from '@/features/calendar-scheduling/lib/adapters/from-kit-event';
@@ -64,6 +64,10 @@ export function CalendarView({
   const isMobile = width < breakpoints.md;
   const effectiveView: ViewType = isMobile && view !== 'day' ? 'day' : view;
   const [internalDate, setInternalDate] = useState(date);
+  const onRangeChangeRef = useRef(onRangeChange);
+  const lastRangeRef = useRef<{ start: string; end: string } | null>(null);
+
+  onRangeChangeRef.current = onRangeChange;
 
   useEffect(() => {
     setInternalDate(date);
@@ -71,8 +75,15 @@ export function CalendarView({
 
   useEffect(() => {
     const range = getVisibleRange(internalDate, effectiveView);
-    onRangeChange(range.start, range.end);
-  }, [internalDate, effectiveView, onRangeChange]);
+    if (
+      lastRangeRef.current?.start === range.start &&
+      lastRangeRef.current?.end === range.end
+    ) {
+      return;
+    }
+    lastRangeRef.current = range;
+    onRangeChangeRef.current(range.start, range.end);
+  }, [internalDate, effectiveView]);
 
   const kitEvents = useMemo(
     () => toKitEvents(events, calendarIdMode),

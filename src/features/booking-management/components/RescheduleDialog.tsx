@@ -48,10 +48,9 @@ export function RescheduleDialog({
   });
 
   useEffect(() => {
-    if (open) {
-      form.reset({ scheduledAt: toDatetimeLocalValue(booking.scheduledAt) });
-    }
-  }, [open, booking.scheduledAt, form]);
+    if (!open) return;
+    form.reset({ scheduledAt: toDatetimeLocalValue(booking.scheduledAt) });
+  }, [open, booking.id, booking.scheduledAt]);
 
   const onSubmit = form.handleSubmit((values) => {
     mutation.mutate(values, { onSuccess: () => onOpenChange(false) });

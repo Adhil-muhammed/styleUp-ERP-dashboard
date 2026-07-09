@@ -1,0 +1,149 @@
+---
+description: When to stabilize useEffect/useMemo deps — precision over blanket memoization
+globs: "**/*.tsx"
+alwaysApply: false
+---
+
+# React Effect Dependency Hygiene
+
+Precision over paranoia. Memoization has a cost — only stabilize when a value is **both** recreated every render **and** consumed in a dependency array (or passed to a child that puts it in one).
+
+Complements [`030-react-components.mdc`](030-react-components.mdc) and [`060-forms-validation.mdc`](060-forms-validation.mdc).
+
+## 1. When a dependency actually needs stabilizing
+
+Stabilize (`useMemo` / `useCallback` / `useRef`) only when **both**:
+
+- **a)** Created fresh every render — inline literal (`() => {}`, `{...}`, `[...]`), or `.filter()` / `.map()` / `.find()` in the render body
+- **b)** Consumed inside a `useEffect` / `useMemo` / `useCallback` dependency array, **or** passed to a child that uses it in an effect dependency
+
+If a value is only used in JSX or as a direct event handler (not in any dependency array), **do not memoize**.
+
+## 2. Callback props passed into components that run effects on them
+
+Pattern: parent passes inline `(a, b) => setX(...)` as a prop; child puts that prop in a `useEffect` dep array and calls it inside the effect.
+
+**Rule — pick one:**
+
+- **Preferred:** child stores the callback in a ref and excludes it from the effect's dependency array (when the child owns effect timing)
+- **Alternative:** parent wraps in `useCallback` with a real dep list — only when the child's effect legitimately needs to react to callback identity changing (rare)
+
+Default to the ref approach for "notify parent on some internal change" patterns (range change, scroll position, form dirty state, etc.).
+
+### Bug 1 — CalendarView infinite loop (before / after)
+
+**Before — BAD:**
+
+```tsx
+// CalendarView.tsx
+useEffect(() => {
+  const range = getVisibleRange(internalDate, effectiveView);
+  onRangeChange(range.start, range.end);
+}, [internalDate, effectiveView, onRangeChange]);
+
+// ShopCalendarTab.tsx
+onRangeChange={(start, end) => setRange({ start, end })}
+```
+
+**After — GOOD:**
+
+```tsx
+// CalendarView.tsx
+const onRangeChangeRef = useRef(onRangeChange);
+const lastRangeRef = useRef<{ start: string; end: string } | null>(null);
+onRangeChangeRef.current = onRangeChange;
+
+useEffect(() => {
+  const range = getVisibleRange(internalDate, effectiveView);
+  if (
+    lastRangeRef.current?.start === range.start &&
+    lastRangeRef.current?.end === range.end
+  ) {
+    return;
+  }
+  lastRangeRef.current = range;
+  onRangeChangeRef.current(range.start, range.end);
+}, [internalDate, effectiveView]);
+
+// Tab
+const handleRangeChange = useCallback((start: string, end: string) => {
+  setRange((prev) =>
+    prev.start === start && prev.end === end ? prev : { start, end },
+  );
+}, []);
+```
+
+## 3. useEffect that calls a setter / reset / mutation — dependency audit
+
+Any `useEffect(() => { setX(...) / form.reset(...) / mutate(...) }, [deps])` must have every entry in `[deps]` be either:
+
+- a primitive (string / number / boolean / id), or
+- a value proven stable by `useMemo` / `useCallback` / `useRef` upstream
+
+If an object or array is in the list "for convenience" (whole `staffOptions` array, `form` object from `useForm`), narrow to the specific primitive fields that determine the reset (e.g. `slot?.id, slot?.start, slot?.end` instead of `slot`). Prefer narrowing over memoizing when only 2–4 primitive fields matter.
+
+Never put `form` from `useForm` in reset-effect deps unless unavoidable.
+
+## 4. React Hook Form `values:` option
+
+Passing an inline object literal to `useForm`'s `values` option (`values: entity ? { ... } : undefined`) re-syncs the form on every render where a new object is created — silently resets fields mid-edit.
+
+**Fix — pick one:**
+
+- Memoize the values object keyed on the entity's primitive fields (`id` + the fields shown), or
+- Use `defaultValues` + a manually-triggered `reset()` on open only (guarded by `if (!open) return`), not on every field-defaults change
+
+### Bug 2 — ManualBookingSheet input reset (before / after)
+
+**Before — BAD:**
+
+```tsx
+const staffOptions = staffFixture.filter((s) => s.merchantId === shopId); // new array every render
+
+useEffect(() => {
+  if (!open) return;
+  form.reset({ /* ... */ staffId: staffOptions[0]?.id ?? '' });
+}, [open, shopId, defaultStart, defaultStaffId, staffOptions, form]);
+
+// Form sheets
+values: slot ? { scope: slot.scope, start: slot.start, /* ... */ } : undefined,
+```
+
+**After — GOOD:**
+
+```tsx
+const staffOptions = useMemo(
+  () => staffFixture.filter((s) => s.merchantId === shopId),
+  [shopId],
+);
+const defaultStaffIdResolved = defaultStaffId ?? staffOptions[0]?.id ?? '';
+
+useEffect(() => {
+  if (!open) return;
+  form.reset({ /* ... */ staffId: defaultStaffIdResolved });
+}, [open, shopId, defaultStart, defaultStaffId, defaultStaffIdResolved]);
+
+const editValues = useMemo(
+  () =>
+    slot
+      ? { scope: slot.scope, start: toDatetimeLocal(slot.start), /* ... */ }
+      : undefined,
+  [slot?.id, slot?.scope, slot?.start, slot?.end, /* primitive fields only */],
+);
+values: editValues,
+```
+
+## 5. Effects that read and write the same state trajectory
+
+If an effect sets state that is (directly or via a prop callback) fed back into that same effect's own dependencies, that's a loop waiting to happen. Check for this during code review — not only at bug-fix time.
+
+```
+effect runs → setState / onRangeChange → parent re-renders → new unstable dep → effect runs → ...
+```
+
+## When NOT to memoize
+
+- Values only used in JSX rendering, not in a dependency array → skip
+- Primitives (string / number / boolean) → never need memoization; they compare by value
+- Objects / arrays only created and consumed within the same component (never passed as a prop, never in an effect dep) → skip
+- Don't wrap every inline arrow in `onClick={...}` handlers — only matters if that handler is itself a dependency somewhere
