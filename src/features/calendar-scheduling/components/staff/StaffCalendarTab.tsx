@@ -4,12 +4,12 @@ import { useTranslation } from 'react-i18next';
 
 import { CalendarLegend } from '@/features/calendar-scheduling/components/calendar/CalendarLegend';
 import { CalendarView } from '@/features/calendar-scheduling/components/calendar/CalendarView';
+import { ManualBookingSheet } from '@/features/calendar-scheduling/components/ManualBookingSheet';
 import { ShopStaffSelector } from '@/features/calendar-scheduling/components/ShopStaffSelector';
 import { useCalendarEventsQuery } from '@/features/calendar-scheduling/hooks/use-calendar-scheduling-queries';
 import { buildStaffCalendars } from '@/features/calendar-scheduling/lib/calendar-calendars';
 import type { CalendarViewMode } from '@/features/calendar-scheduling/types/calendar-event';
-import type { CalendarFilter, ScheduleEvent } from '@/features/calendar-scheduling/types/schedule-event';
-import { BookingDetailsSheet } from '@/features/booking-management/components/BookingDetailsSheet';
+import type { CalendarFilter } from '@/features/calendar-scheduling/types/schedule-event';
 import { staffFixture } from '@/features/staff-management/api/fixtures/staff.fixture';
 import { PERMISSIONS } from '@/shared/config/permissions';
 import { usePermissions } from '@/shared/hooks/use-permissions';
@@ -31,8 +31,9 @@ export function StaffCalendarTab(): React.ReactElement {
   const [view, setView] = useState<CalendarViewMode>('week');
   const [date, setDate] = useState(new Date());
   const [range, setRange] = useState({ start: new Date().toISOString(), end: new Date().toISOString() });
-  const [selectedBookingId, setSelectedBookingId] = useState<string | null>(null);
-  const [detailsOpen, setDetailsOpen] = useState(false);
+  const [manualOpen, setManualOpen] = useState(false);
+  const [manualStart, setManualStart] = useState<string | undefined>();
+  const [manualStaffId, setManualStaffId] = useState<string | undefined>();
 
   const staffOptions = useMemo(
     () => staffFixture.filter((s) => s.merchantId === shopId).slice(0, 4),
@@ -70,17 +71,17 @@ export function StaffCalendarTab(): React.ReactElement {
 
   const { data, isPending, isFetching, isError } = useCalendarEventsQuery(queryParams);
 
-  const handleEventClick = (event: ScheduleEvent): void => {
-    if (event.kind === 'booking') {
-      setSelectedBookingId(event.meta.entityId);
-      setDetailsOpen(true);
-    }
-  };
-
   const handleCalendarToggle = (calendarId: string, active: boolean): void => {
     setCalendars((current) =>
       current.map((cal) => (cal.id === calendarId ? { ...cal, active } : cal)),
     );
+  };
+
+  const openManualBookingWithoutPrefill = (): void => {
+    if (!canManage) return;
+    setManualStart(undefined);
+    setManualStaffId(undefined);
+    setManualOpen(true);
   };
 
   if (isError) {
@@ -100,19 +101,27 @@ export function StaffCalendarTab(): React.ReactElement {
         date={date}
         onDateChange={setDate}
         onRangeChange={handleRangeChange}
-        onEventClick={handleEventClick}
+        eventFormConfig={{
+          mode: 'staff',
+          shopId,
+          defaultStaffId: activeStaffIds.length === 1 ? activeStaffIds[0] : undefined,
+        }}
         onCalendarToggle={handleCalendarToggle}
         readOnly={!canManage}
         isLoading={isPending || isFetching}
         calendarIdMode="staff"
         emptyTitle={t('empty.staffCalendar')}
         emptyDescription={t('empty.staffCalendarHint')}
+        emptyActionLabel={canManage ? t('manualBooking.title') : undefined}
+        onEmptyAction={canManage ? openManualBookingWithoutPrefill : undefined}
       />
 
-      <BookingDetailsSheet
-        bookingId={selectedBookingId}
-        open={detailsOpen}
-        onOpenChange={setDetailsOpen}
+      <ManualBookingSheet
+        open={manualOpen}
+        onOpenChange={setManualOpen}
+        shopId={shopId}
+        defaultStart={manualStart}
+        defaultStaffId={manualStaffId}
       />
     </div>
   );

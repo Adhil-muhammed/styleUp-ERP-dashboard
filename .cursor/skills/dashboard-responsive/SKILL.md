@@ -15,6 +15,7 @@ Any task touching dashboard UI: new module page, new chart, new card, new table,
 2. For JavaScript breakpoint logic, use `useResponsive()` from `@/shared/hooks/use-responsive` — never `matchMedia` or `window.innerWidth` in components. The singleton store in `src/shared/lib/responsive-store.ts` owns the single resize listener.
 3. Reuse shared components first: `KpiCard`, `Card`, `ResponsiveGrid`, `ChartContainer`, `Skeleton`, `TruncatedText`. Do not create new variants unless none exist.
 4. For new charts: use `ChartContainer` + `useChartResponsive` hook (which consumes `useResponsive` internally). Define both desktop and mobile behavior via theme `chart.mobileConfig`, not duplicated logic.
+4b. For calendar scheduling: use `calendar` height tokens and `calendarClasses` from `src/theme/responsive.ts` on `CalendarView` — never ad-hoc scheduler heights.
 5. For new tables: use `ResponsiveTable` — it auto-switches to card view below md via `useResponsive`. Do not build a separate mobile table manually.
 6. For new grids/sections: use `ResponsiveGrid` with a `preset` prop (`kpiCards`, `twoColumnCharts`, `activityPanels`) instead of writing raw grid-cols classes.
 7. For navigation below lg: use the `SidebarProvider` + Sheet drawer pattern in `AppShell`; persistent sidebar at lg+.

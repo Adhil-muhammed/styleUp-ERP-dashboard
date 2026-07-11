@@ -34,7 +34,7 @@ export function HolidayCalendarTab(): React.ReactElement {
   const canManage = ability.can('manage', PERMISSIONS.calendar.manage);
 
   const [shopId, setShopId] = useState(merchantId ?? shopsFixture[0]?.id ?? '');
-  const [view, setView] = useState<CalendarViewMode>('month');
+  const [view, setView] = useState<CalendarViewMode>('week');
   const [date, setDate] = useState(new Date());
   const [range, setRange] = useState({ start: new Date().toISOString(), end: new Date().toISOString() });
   const [formOpen, setFormOpen] = useState(false);
@@ -44,6 +44,7 @@ export function HolidayCalendarTab(): React.ReactElement {
   const [pendingHoliday, setPendingHoliday] = useState<Holiday | null>(null);
 
   const holidayCalendars = useMemo(() => buildHolidayCalendars(), []);
+  const deleteHolidayMutation = useDeleteHolidayMutation();
 
   const handleRangeChange = useCallback((start: string, end: string) => {
     setRange((prev) =>
@@ -58,7 +59,6 @@ export function HolidayCalendarTab(): React.ReactElement {
     rangeEnd: range.end,
     kinds: ['holiday', 'booking'],
   });
-  const deleteMutation = useDeleteHolidayMutation();
   const createMutation = useCreateHolidayMutation();
 
   const handleSaved = async (holiday: Holiday): Promise<void> => {
@@ -70,16 +70,15 @@ export function HolidayCalendarTab(): React.ReactElement {
     }
   };
 
-  const handleEventClick = (event: ScheduleEvent): void => {
-    if (event.kind !== 'holiday' || !canManage) return;
-    const holiday = holidays?.find((h) => h.id === event.meta.entityId);
-    if (holiday) {
-      setEditHoliday(holiday);
-      setFormOpen(true);
-    }
-  };
+  const handleDeleteEvent = useCallback(
+    (event: ScheduleEvent): void => {
+      if (!canManage || event.kind !== 'holiday') return;
+      deleteHolidayMutation.mutate(event.meta.entityId);
+    },
+    [canManage, deleteHolidayMutation],
+  );
 
-  const handleEventCreate = (_initialDate: Date): void => {
+  const openHolidayFormWithoutPrefill = (): void => {
     if (!canManage) return;
     setEditHoliday(undefined);
     setFormOpen(true);
@@ -90,12 +89,7 @@ export function HolidayCalendarTab(): React.ReactElement {
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <ShopStaffSelector shopId={shopId} onShopChange={setShopId} />
         {canManage ? (
-          <Button
-            onClick={() => {
-              setEditHoliday(undefined);
-              setFormOpen(true);
-            }}
-          >
+          <Button onClick={openHolidayFormWithoutPrefill}>
             {t('holidays.add')}
           </Button>
         ) : null}
@@ -119,11 +113,18 @@ export function HolidayCalendarTab(): React.ReactElement {
               date={date}
               onDateChange={setDate}
               onRangeChange={handleRangeChange}
-              onEventClick={handleEventClick}
-              onEventCreate={handleEventCreate}
+              eventFormConfig={{
+                mode: 'holiday',
+                shopId,
+                holidays,
+                onHolidaySaved: handleSaved,
+              }}
+              onDeleteEvent={handleDeleteEvent}
               readOnly={!canManage}
               isLoading={calPending || isFetching}
               emptyTitle={t('holidays.empty')}
+              emptyActionLabel={canManage ? t('holidays.add') : undefined}
+              onEmptyAction={canManage ? openHolidayFormWithoutPrefill : undefined}
             />
           )}
         </TabsContent>
@@ -160,7 +161,7 @@ export function HolidayCalendarTab(): React.ReactElement {
                       <Button
                         size="sm"
                         variant="destructive"
-                        onClick={() => deleteMutation.mutate(holiday.id)}
+                        onClick={() => deleteHolidayMutation.mutate(holiday.id)}
                       >
                         {t('actions.delete')}
                       </Button>

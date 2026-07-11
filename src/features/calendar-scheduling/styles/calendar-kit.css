@@ -1,0 +1,43 @@
+/* CalendarKit utility classes scoped to the calendar host — do not import full calendarkit styles.css (conflicts with shadcn tokens). */
+
+@layer utilities {
+  .calendar-view-host .glass {
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    background: hsl(var(--background) / 0.8);
+    border: 1px solid hsl(var(--border) / 0.5);
+  }
+
+  .calendar-view-host .glass-card {
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    background: hsl(var(--card) / 0.9);
+    box-shadow:
+      0 4px 6px -1px hsl(var(--foreground) / 0.05),
+      0 2px 4px -2px hsl(var(--foreground) / 0.05);
+  }
+
+  .calendar-view-host .gradient-header {
+    background: linear-gradient(
+      135deg,
+      hsl(var(--primary) / 0.1) 0%,
+      hsl(var(--accent) / 0.05) 100%
+    );
+  }
+
+  .calendar-view-host .pulse-dot {
+    animation: calendar-pulse-ring 2s ease-out infinite;
+  }
+
+  @keyframes calendar-pulse-ring {
+    0% {
+      box-shadow: 0 0 0 0 hsl(var(--primary) / 0.4);
+    }
+    70% {
+      box-shadow: 0 0 0 6px hsl(var(--primary) / 0);
+    }
+    100% {
+      box-shadow: 0 0 0 0 hsl(var(--primary) / 0);
+    }
+  }
+}

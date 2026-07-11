@@ -47,6 +47,17 @@ export const chartClasses = {
   skeleton: 'h-52 w-full rounded-lg sm:h-60 md:h-64 lg:h-72',
 } as const;
 
+export const calendar = {
+  heightMobile: 480,
+  heightTablet: 560,
+  heightDesktop: 640,
+} as const;
+
+export const calendarClasses = {
+  host: 'flex min-h-0 flex-col overflow-hidden rounded-xl border',
+  scheduler: 'min-h-0 flex-1',
+} as const;
+
 export const layout = {
   pageStack: 'space-y-4 md:space-y-6',
   shell: 'flex h-dvh overflow-hidden',

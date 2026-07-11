@@ -6,11 +6,16 @@ import { CalendarLegend } from '@/features/calendar-scheduling/components/calend
 import { CalendarView } from '@/features/calendar-scheduling/components/calendar/CalendarView';
 import { ManualBookingSheet } from '@/features/calendar-scheduling/components/ManualBookingSheet';
 import { ShopStaffSelector } from '@/features/calendar-scheduling/components/ShopStaffSelector';
-import { useCalendarEventsQuery } from '@/features/calendar-scheduling/hooks/use-calendar-scheduling-queries';
+import {
+  useBlockedSlotsQuery,
+  useCalendarEventsQuery,
+  useDeleteBlockedSlotMutation,
+  useDeleteHolidayMutation,
+  useHolidaysQuery,
+} from '@/features/calendar-scheduling/hooks/use-calendar-scheduling-queries';
 import { buildShopCalendars } from '@/features/calendar-scheduling/lib/calendar-calendars';
 import type { CalendarViewMode } from '@/features/calendar-scheduling/types/calendar-event';
 import type { ScheduleEvent } from '@/features/calendar-scheduling/types/schedule-event';
-import { BookingDetailsSheet } from '@/features/booking-management/components/BookingDetailsSheet';
 import { PERMISSIONS } from '@/shared/config/permissions';
 import { usePermissions } from '@/shared/hooks/use-permissions';
 import { useScope } from '@/shared/hooks/use-scope';
@@ -23,18 +28,18 @@ export function ShopCalendarTab(): React.ReactElement {
   const canManage = ability.can('manage', PERMISSIONS.calendar.manage);
 
   const [shopId, setShopId] = useState(merchantId ?? shopsFixture[0]?.id ?? '');
-  const [view, setView] = useState<CalendarViewMode>('month');
+  const [view, setView] = useState<CalendarViewMode>('week');
   const [date, setDate] = useState(new Date());
   const [range, setRange] = useState({
     start: new Date().toISOString(),
     end: new Date().toISOString(),
   });
-  const [selectedBookingId, setSelectedBookingId] = useState<string | null>(null);
-  const [detailsOpen, setDetailsOpen] = useState(false);
   const [manualOpen, setManualOpen] = useState(false);
   const [manualStart, setManualStart] = useState<string | undefined>();
 
   const shopCalendars = useMemo(() => buildShopCalendars(), []);
+  const deleteHolidayMutation = useDeleteHolidayMutation();
+  const deleteBlockedMutation = useDeleteBlockedSlotMutation();
 
   const handleRangeChange = useCallback((start: string, end: string) => {
     setRange((prev) =>
@@ -49,24 +54,31 @@ export function ShopCalendarTab(): React.ReactElement {
       rangeEnd: range.end,
       kinds: ['booking', 'holiday', 'blocked'] as const,
     }),
-    [shopId, range.start, range.end]
+    [shopId, range.start, range.end],
   );
 
   const { data, isPending, isFetching, isError } = useCalendarEventsQuery({
     ...queryParams,
     kinds: [...queryParams.kinds],
   });
+  const { data: holidays } = useHolidaysQuery(shopId);
+  const { data: blockedSlots } = useBlockedSlotsQuery(shopId);
 
-  const handleEventClick = (event: ScheduleEvent): void => {
-    if (event.kind === 'booking') {
-      setSelectedBookingId(event.meta.entityId);
-      setDetailsOpen(true);
-    }
-  };
+  const handleDeleteEvent = useCallback(
+    (event: ScheduleEvent): void => {
+      if (!canManage) return;
+      if (event.kind === 'holiday') {
+        deleteHolidayMutation.mutate(event.meta.entityId);
+      } else if (event.kind === 'blocked') {
+        deleteBlockedMutation.mutate(event.meta.entityId);
+      }
+    },
+    [canManage, deleteHolidayMutation, deleteBlockedMutation],
+  );
 
-  const handleEventCreate = (initialDate: Date): void => {
+  const openManualBookingWithoutPrefill = (): void => {
     if (!canManage) return;
-    setManualStart(initialDate.toISOString());
+    setManualStart(undefined);
     setManualOpen(true);
   };
 
@@ -86,23 +98,21 @@ export function ShopCalendarTab(): React.ReactElement {
         date={date}
         onDateChange={setDate}
         onRangeChange={handleRangeChange}
-        onEventClick={handleEventClick}
-        onEventCreate={handleEventCreate}
+        eventFormConfig={{
+          mode: 'shop',
+          shopId,
+          holidays,
+          blockedSlots,
+        }}
+        onDeleteEvent={handleDeleteEvent}
         readOnly={!canManage}
         isLoading={isPending || isFetching}
         emptyTitle={t('empty.calendar')}
         emptyDescription={canManage ? t('empty.calendarCta') : undefined}
         emptyActionLabel={canManage ? t('manualBooking.title') : undefined}
-        // Inline callback is safe: consumer does not use this in a useEffect dep array.
-        // If that changes, stabilize with useCallback — see .cursor/rules/095-react-effect-hygiene.mdc
-        onEmptyAction={canManage ? () => handleEventCreate(new Date()) : undefined}
+        onEmptyAction={canManage ? openManualBookingWithoutPrefill : undefined}
       />
 
-      <BookingDetailsSheet
-        bookingId={selectedBookingId}
-        open={detailsOpen}
-        onOpenChange={setDetailsOpen}
-      />
       <ManualBookingSheet
         open={manualOpen}
         onOpenChange={setManualOpen}

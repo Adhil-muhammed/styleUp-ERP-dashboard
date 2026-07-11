@@ -34,10 +34,9 @@ export function BlockedSlotsTab(): React.ReactElement {
   const [range, setRange] = useState({ start: new Date().toISOString(), end: new Date().toISOString() });
   const [formOpen, setFormOpen] = useState(false);
   const [editSlot, setEditSlot] = useState<BlockedSlot | undefined>();
-  const [selectStart, setSelectStart] = useState<string | undefined>();
-  const [selectEnd, setSelectEnd] = useState<string | undefined>();
 
   const blockedCalendars = useMemo(() => buildBlockedCalendars(), []);
+  const deleteMutation = useDeleteBlockedSlotMutation();
 
   const handleRangeChange = useCallback((start: string, end: string) => {
     setRange((prev) =>
@@ -51,23 +50,19 @@ export function BlockedSlotsTab(): React.ReactElement {
     kinds: ['blocked'],
   });
   const { data: slots, isPending: slotsPending } = useBlockedSlotsQuery(shopId);
-  const deleteMutation = useDeleteBlockedSlotMutation();
 
-  const openCreateForm = (start: Date, end?: Date): void => {
+  const handleDeleteEvent = useCallback(
+    (event: ScheduleEvent): void => {
+      if (!canManage || event.kind !== 'blocked') return;
+      deleteMutation.mutate(event.meta.entityId);
+    },
+    [canManage, deleteMutation],
+  );
+
+  const openCreateFormSheet = (): void => {
     if (!canManage) return;
-    setSelectStart(start.toISOString());
-    setSelectEnd(end?.toISOString() ?? new Date(start.getTime() + 60 * 60 * 1000).toISOString());
     setEditSlot(undefined);
     setFormOpen(true);
-  };
-
-  const handleEventClick = (event: ScheduleEvent): void => {
-    if (event.kind !== 'blocked' || !canManage) return;
-    const slot = slots?.find((s) => s.id === event.meta.entityId);
-    if (slot) {
-      setEditSlot(slot);
-      setFormOpen(true);
-    }
   };
 
   return (
@@ -75,14 +70,7 @@ export function BlockedSlotsTab(): React.ReactElement {
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <ShopStaffSelector shopId={shopId} onShopChange={setShopId} />
         {canManage ? (
-          <Button
-            onClick={() => {
-              setEditSlot(undefined);
-              setSelectStart(undefined);
-              setSelectEnd(undefined);
-              setFormOpen(true);
-            }}
-          >
+          <Button onClick={openCreateFormSheet}>
             {t('blocked.add')}
           </Button>
         ) : null}
@@ -100,17 +88,17 @@ export function BlockedSlotsTab(): React.ReactElement {
             date={date}
             onDateChange={setDate}
             onRangeChange={handleRangeChange}
-            onEventClick={handleEventClick}
-            // Inline callback is safe: consumer does not use this in a useEffect dep array.
-            // If that changes, stabilize with useCallback — see .cursor/rules/095-react-effect-hygiene.mdc
-            onEventCreate={(initialDate) => openCreateForm(initialDate)}
+            eventFormConfig={{
+              mode: 'blocked',
+              shopId,
+              blockedSlots: slots,
+            }}
+            onDeleteEvent={handleDeleteEvent}
             readOnly={!canManage}
             isLoading={isPending || isFetching}
             emptyTitle={t('blocked.empty')}
             emptyActionLabel={canManage ? t('blocked.add') : undefined}
-            // Inline callback is safe: consumer does not use this in a useEffect dep array.
-            // If that changes, stabilize with useCallback — see .cursor/rules/095-react-effect-hygiene.mdc
-            onEmptyAction={canManage ? () => openCreateForm(new Date()) : undefined}
+            onEmptyAction={canManage ? openCreateFormSheet : undefined}
           />
         )}
         <div>
@@ -134,8 +122,6 @@ export function BlockedSlotsTab(): React.ReactElement {
         onOpenChange={setFormOpen}
         shopId={shopId}
         slot={editSlot}
-        defaultStart={selectStart}
-        defaultEnd={selectEnd}
       />
     </div>
   );
