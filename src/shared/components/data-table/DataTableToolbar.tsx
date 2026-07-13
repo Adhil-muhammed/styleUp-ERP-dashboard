@@ -9,6 +9,7 @@ export type DataTableToolbarProps = {
   onGlobalFilterChange: (value: string) => void;
   searchPlaceholder?: string;
   filterSlot?: ReactNode;
+  endSlot?: ReactNode;
   className?: string;
 };
 
@@ -17,6 +18,7 @@ export function DataTableToolbar({
   onGlobalFilterChange,
   searchPlaceholder = 'Search...',
   filterSlot,
+  endSlot,
   className,
 }: DataTableToolbarProps): React.ReactElement {
   const hasFilters = Boolean(filterSlot);
@@ -32,13 +34,16 @@ export function DataTableToolbar({
       )}
       data-testid="data-table-toolbar"
     >
-      <Input
-        value={globalFilter}
-        onChange={(event) => onGlobalFilterChange(event.target.value)}
-        placeholder={searchPlaceholder}
-        className={cn('w-full shrink-0', hasFilters ? 'lg:max-w-xs' : 'sm:max-w-xs')}
-        aria-label={searchPlaceholder}
-      />
+      <div className="flex w-full flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <Input
+          value={globalFilter}
+          onChange={(event) => onGlobalFilterChange(event.target.value)}
+          placeholder={searchPlaceholder}
+          className={cn('w-full shrink-0', hasFilters ? 'lg:max-w-xs' : 'sm:max-w-xs')}
+          aria-label={searchPlaceholder}
+        />
+        {endSlot ? <div className="flex shrink-0 justify-end">{endSlot}</div> : null}
+      </div>
       {filterSlot ? <div className="min-w-0 w-full lg:flex-1">{filterSlot}</div> : null}
     </div>
   );

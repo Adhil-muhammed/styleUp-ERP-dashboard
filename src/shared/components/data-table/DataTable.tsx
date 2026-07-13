@@ -11,6 +11,10 @@ import type { ReactNode } from 'react';
 import type React from 'react';
 
 import { DataTablePagination } from '@/shared/components/data-table/DataTablePagination';
+import {
+  CursorDataTablePagination,
+  type CursorDataTablePaginationProps,
+} from '@/shared/components/data-table/CursorDataTablePagination';
 import { DataTableToolbar } from '@/shared/components/data-table/DataTableToolbar';
 import { Skeleton } from '@/shared/components/ui/skeleton';
 import { useResponsive } from '@/shared/hooks/use-responsive';
@@ -41,6 +45,9 @@ export type DataTableProps<TData> = {
   manualSorting?: boolean;
   className?: string;
   onRowClick?: (row: TData) => void;
+  paginationMode?: 'offset' | 'cursor';
+  cursorPagination?: Omit<CursorDataTablePaginationProps, 'className'>;
+  toolbarEndSlot?: ReactNode;
 };
 
 export function DataTable<TData>({
@@ -62,6 +69,9 @@ export function DataTable<TData>({
   manualSorting = false,
   className,
   onRowClick,
+  paginationMode = 'offset',
+  cursorPagination,
+  toolbarEndSlot,
 }: DataTableProps<TData>): React.ReactElement {
   const { width } = useResponsive();
   const useCardView = width < breakpoints.md && renderMobileCard !== undefined;
@@ -90,6 +100,7 @@ export function DataTable<TData>({
         onGlobalFilterChange={onGlobalFilterChange}
         searchPlaceholder={searchPlaceholder}
         filterSlot={filterSlot}
+        endSlot={toolbarEndSlot}
       />
 
       {isLoading ? (
@@ -174,7 +185,11 @@ export function DataTable<TData>({
         </div>
       )}
 
-      <DataTablePagination table={table} rowCount={rowCount} labels={paginationLabels} />
+      {paginationMode === 'cursor' && cursorPagination ? (
+        <CursorDataTablePagination {...cursorPagination} />
+      ) : (
+        <DataTablePagination table={table} rowCount={rowCount} labels={paginationLabels} />
+      )}
     </div>
   );
 }

@@ -1,1 +1,157 @@
-{}
+{
+  "page": {
+    "title": "Payment Management",
+    "subtitleAdmin": "Transactions and settlements for {{scope}}",
+    "subtitleOwner": "Payments for your shop"
+  },
+  "scope": {
+    "allShops": "all shops",
+    "singleShop": "shop {{shopId}}"
+  },
+  "kpis": {
+    "title": "Payment overview",
+    "totalRevenue": "Total revenue",
+    "totalRefunds": "Total refunds",
+    "successRate": "Success rate",
+    "pendingSettlements": "Pending settlements",
+    "period": {
+      "today": "Today",
+      "7d": "Last 7 days",
+      "30d": "Last 30 days",
+      "month": "This month"
+    }
+  },
+  "list": {
+    "booking": "Booking",
+    "customer": "Customer",
+    "shop": "Shop",
+    "amount": "Amount",
+    "method": "Method",
+    "gateway": "Gateway",
+    "status": "Status",
+    "date": "Date",
+    "actions": "Actions",
+    "searchPlaceholder": "Search booking, customer, or transaction ID…",
+    "previous": "Previous",
+    "next": "Next",
+    "rowsPerPage": "Rows per page"
+  },
+  "status": {
+    "pending": "Pending",
+    "success": "Success",
+    "failed": "Failed",
+    "refunded": "Refunded",
+    "partially_refunded": "Partially refunded"
+  },
+  "method": {
+    "upi": "UPI",
+    "card": "Card",
+    "netbanking": "Netbanking",
+    "wallet": "Wallet"
+  },
+  "gateway": {
+    "razorpay": "Razorpay"
+  },
+  "filters": {
+    "datePreset": "Date range",
+    "allDates": "All dates",
+    "today": "Today",
+    "last7d": "Last 7 days",
+    "last30d": "Last 30 days",
+    "custom": "Custom range",
+    "dateFrom": "From date",
+    "dateTo": "To date",
+    "status": "Status",
+    "allStatus": "All statuses",
+    "method": "Payment method",
+    "allMethods": "All methods",
+    "shop": "Shop",
+    "allShops": "All shops",
+    "shopSearch": "Search shops…",
+    "amountMin": "Min amount (₹)",
+    "amountMax": "Max amount (₹)"
+  },
+  "detail": {
+    "title": "Transaction {{id}}",
+    "loadingTitle": "Transaction details",
+    "loadError": "Unable to load transaction details.",
+    "customer": "Customer",
+    "shop": "Shop",
+    "amount": "Amount",
+    "refunded": "Refunded",
+    "net": "Net amount",
+    "method": "Method",
+    "gateway": "Gateway",
+    "date": "Date",
+    "bookingTitle": "Booking",
+    "service": "Service",
+    "scheduledAt": "Scheduled at",
+    "bookingStatus": "Booking status",
+    "gatewayIds": "Gateway identifiers",
+    "gatewayTransactionId": "Gateway transaction ID",
+    "razorpayPaymentId": "Razorpay payment ID",
+    "razorpayOrderId": "Razorpay order ID",
+    "upiIntentUrl": "UPI intent URL",
+    "timeline": "Status timeline",
+    "refunds": "Refund history",
+    "noRefunds": "No refunds for this transaction.",
+    "rawGatewayResponse": "Raw gateway response"
+  },
+  "refund": {
+    "title": "Refund {{ref}}",
+    "titleGeneric": "Issue refund",
+    "remaining": "Remaining refundable: {{amount}}",
+    "type": "Refund type",
+    "full": "Full refund",
+    "partial": "Partial refund",
+    "amount": "Refund amount (₹)",
+    "reasonLabel": "Reason",
+    "note": "Note (optional)",
+    "notePlaceholder": "Additional context for support…",
+    "review": "Review refund",
+    "cancel": "Cancel",
+    "confirmTitle": "Confirm refund",
+    "confirmDescription": "You are about to refund {{amount}}. This action initiates a money movement via Razorpay and cannot be silently undone.",
+    "confirm": "Confirm refund",
+    "status": {
+      "requested": "Requested",
+      "processing": "Processing",
+      "completed": "Completed",
+      "failed": "Failed"
+    },
+    "reason": {
+      "customer_request": "Customer request",
+      "duplicate": "Duplicate payment",
+      "service_issue": "Service issue",
+      "other": "Other"
+    }
+  },
+  "settlement": {
+    "title": "Settlement summary",
+    "shop": "Shop",
+    "period": "Period",
+    "gross": "Gross revenue",
+    "commission": "Platform commission",
+    "netPayable": "Net payable",
+    "statusLabel": "Status",
+    "status": {
+      "pending": "Pending",
+      "processing": "Processing",
+      "paid": "Paid"
+    }
+  },
+  "export": {
+    "label": "Export CSV"
+  },
+  "actions": {
+    "menu": "Transaction actions",
+    "viewDetails": "View details",
+    "refund": "Refund",
+    "downloadReceipt": "Download receipt"
+  },
+  "empty": {
+    "transactions": "No transactions match your filters.",
+    "settlements": "No settlements for the selected period.",
+    "kpis": "No payment metrics available."
+  }
+}

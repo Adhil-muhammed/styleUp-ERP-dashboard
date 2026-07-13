@@ -1,1 +1,157 @@
-{}
+{
+  "page": {
+    "title": "പേയ്മെന്റ് മാനേജ്മെന്റ്",
+    "subtitleAdmin": "{{scope}} എന്നിവയ്ക്കുള്ള ഇടപാടുകളും സെറ്റിൽമെന്റുകളും",
+    "subtitleOwner": "നിങ്ങളുടെ ഷോപ്പിന്റെ പേയ്മെന്റുകൾ"
+  },
+  "scope": {
+    "allShops": "എല്ലാ ഷോപ്പുകളും",
+    "singleShop": "ഷോപ്പ് {{shopId}}"
+  },
+  "kpis": {
+    "title": "പേയ്മെന്റ് അവലോകനം",
+    "totalRevenue": "മൊത്തം വരുമാനം",
+    "totalRefunds": "മൊത്തം റീഫണ്ടുകൾ",
+    "successRate": "വിജയ നിരക്ക്",
+    "pendingSettlements": "തീർപ്പാക്കാത്ത സെറ്റിൽമെന്റുകൾ",
+    "period": {
+      "today": "ഇന്ന്",
+      "7d": "കഴിഞ്ഞ 7 ദിവസം",
+      "30d": "കഴിഞ്ഞ 30 ദിവസം",
+      "month": "ഈ മാസം"
+    }
+  },
+  "list": {
+    "booking": "ബുക്കിംഗ്",
+    "customer": "ഉപഭോക്താവ്",
+    "shop": "ഷോപ്പ്",
+    "amount": "തുക",
+    "method": "രീതി",
+    "gateway": "ഗേറ്റ്‌വേ",
+    "status": "സ്ഥിതി",
+    "date": "തീയതി",
+    "actions": "പ്രവർത്തനങ്ങൾ",
+    "searchPlaceholder": "ബുക്കിംഗ്, ഉപഭോക്താവ്, ഇടപാട് ID തിരയുക…",
+    "previous": "മുമ്പത്തെ",
+    "next": "അടുത്തത്",
+    "rowsPerPage": "ഓരോ പേജിലും വരികൾ"
+  },
+  "status": {
+    "pending": "തീർപ്പാക്കാത്തത്",
+    "success": "വിജയം",
+    "failed": "പരാജയം",
+    "refunded": "റീഫണ്ട് ചെയ്തു",
+    "partially_refunded": "ഭാഗിക റീഫണ്ട്"
+  },
+  "method": {
+    "upi": "UPI",
+    "card": "കാർഡ്",
+    "netbanking": "നെറ്റ് ബാങ്കിംഗ്",
+    "wallet": "വാലറ്റ്"
+  },
+  "gateway": {
+    "razorpay": "Razorpay"
+  },
+  "filters": {
+    "datePreset": "തീയതി പരിധി",
+    "allDates": "എല്ലാ തീയതികളും",
+    "today": "ഇന്ന്",
+    "last7d": "കഴിഞ്ഞ 7 ദിവസം",
+    "last30d": "കഴിഞ്ഞ 30 ദിവസം",
+    "custom": "ഇഷ്ടാനുസൃത പരിധി",
+    "dateFrom": "തുടക്ക തീയതി",
+    "dateTo": "അവസാന തീയതി",
+    "status": "സ്ഥിതി",
+    "allStatus": "എല്ലാ സ്ഥിതികളും",
+    "method": "പേയ്മെന്റ് രീതി",
+    "allMethods": "എല്ലാ രീതികളും",
+    "shop": "ഷോപ്പ്",
+    "allShops": "എല്ലാ ഷോപ്പുകളും",
+    "shopSearch": "ഷോപ്പുകൾ തിരയുക…",
+    "amountMin": "കുറഞ്ഞ തുക (₹)",
+    "amountMax": "കൂടിയ തുക (₹)"
+  },
+  "detail": {
+    "title": "ഇടപാട് {{id}}",
+    "loadingTitle": "ഇടപാട് വിവരങ്ങൾ",
+    "loadError": "ഇടപാട് വിവരങ്ങൾ ലോഡ് ചെയ്യാൻ കഴിഞ്ഞില്ല.",
+    "customer": "ഉപഭോക്താവ്",
+    "shop": "ഷോപ്പ്",
+    "amount": "തുക",
+    "refunded": "റീഫണ്ട് ചെയ്തത്",
+    "net": "അന്തിമ തുക",
+    "method": "രീതി",
+    "gateway": "ഗേറ്റ്‌വേ",
+    "date": "തീയതി",
+    "bookingTitle": "ബുക്കിംഗ്",
+    "service": "സേവനം",
+    "scheduledAt": "ഷെഡ്യൂൾ ചെയ്ത സമയം",
+    "bookingStatus": "ബുക്കിംഗ് സ്ഥിതി",
+    "gatewayIds": "ഗേറ്റ്‌വേ ഐഡന്റിഫയറുകൾ",
+    "gatewayTransactionId": "ഗേറ്റ്‌വേ ഇടപാട് ID",
+    "razorpayPaymentId": "Razorpay payment ID",
+    "razorpayOrderId": "Razorpay order ID",
+    "upiIntentUrl": "UPI intent URL",
+    "timeline": "സ്ഥിതി ടൈംലൈൻ",
+    "refunds": "റീഫണ്ട് ചരിത്രം",
+    "noRefunds": "ഈ ഇടപാടിന് റീഫണ്ടുകളില്ല.",
+    "rawGatewayResponse": "അസംസ്കൃത ഗേറ്റ്‌വേ പ്രതികരണം"
+  },
+  "refund": {
+    "title": "റീഫണ്ട് {{ref}}",
+    "titleGeneric": "റീഫണ്ട് നൽകുക",
+    "remaining": "ബാക്കി റീഫണ്ട് ചെയ്യാവുന്നത്: {{amount}}",
+    "type": "റീഫണ്ട് തരം",
+    "full": "പൂർണ റീഫണ്ട്",
+    "partial": "ഭാഗിക റീഫണ്ട്",
+    "amount": "റീഫണ്ട് തുക (₹)",
+    "reasonLabel": "കാരണം",
+    "note": "കുറിപ്പ് (ഓപ്ഷണൽ)",
+    "notePlaceholder": "സപ്പോർട്ടിനുള്ള അധിക വിവരം…",
+    "review": "റീഫണ്ട് അവലോകനം",
+    "cancel": "റദ്ദാക്കുക",
+    "confirmTitle": "റീഫണ്ട് സ്ഥിരീകരിക്കുക",
+    "confirmDescription": "നിങ്ങൾ {{amount}} റീഫണ്ട് ചെയ്യാൻ പോകുന്നു. Razorpay വഴി ഇത് പണം മാറ്റം ആരംഭിക്കും.",
+    "confirm": "റീഫണ്ട് സ്ഥിരീകരിക്കുക",
+    "status": {
+      "requested": "അഭ്യർത്ഥിച്ചു",
+      "processing": "പ്രോസസ്സിംഗ്",
+      "completed": "പൂർത്തിയായി",
+      "failed": "പരാജയം"
+    },
+    "reason": {
+      "customer_request": "ഉപഭോക്തൃ അഭ്യർത്ഥന",
+      "duplicate": "ഡ്യൂപ്ലിക്കേറ്റ് പേയ്മെന്റ്",
+      "service_issue": "സേവന പ്രശ്നം",
+      "other": "മറ്റുള്ളവ"
+    }
+  },
+  "settlement": {
+    "title": "സെറ്റിൽമെന്റ് സംഗ്രഹം",
+    "shop": "ഷോപ്പ്",
+    "period": "കാലയളവ്",
+    "gross": "മൊത്തം വരുമാനം",
+    "commission": "പ്ലാറ്റ്ഫോം കമ്മീഷൻ",
+    "netPayable": "അന്തിമ നൽകേണ്ടത്",
+    "statusLabel": "സ്ഥിതി",
+    "status": {
+      "pending": "തീർപ്പാക്കാത്തത്",
+      "processing": "പ്രോസസ്സിംഗ്",
+      "paid": "അടച്ചു"
+    }
+  },
+  "export": {
+    "label": "CSV എക്സ്പോർട്ട്"
+  },
+  "actions": {
+    "menu": "ഇടപാട് പ്രവർത്തനങ്ങൾ",
+    "viewDetails": "വിവരങ്ങൾ കാണുക",
+    "refund": "റീഫണ്ട്",
+    "downloadReceipt": "രസീത് ഡൗൺലോഡ്"
+  },
+  "empty": {
+    "transactions": "നിങ്ങളുടെ ഫിൽട്ടറുകൾക്ക് ഇടപാടുകളൊന്നുമില്ല.",
+    "settlements": "തിരഞ്ഞെടുത്ത കാലയളവിൽ സെറ്റിൽമെന്റുകളില്ല.",
+    "kpis": "പേയ്മെന്റ് മെട്രിക്സ് ലഭ്യമല്ല."
+  }
+}

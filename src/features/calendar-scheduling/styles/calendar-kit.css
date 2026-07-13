@@ -41,3 +41,8 @@
     }
   }
 }
+
+/* EventViewModal (native calendarkit-basic): absolute close button + h2 pr-10 is too narrow */
+.calendar-view-host .rounded-2xl.shadow-2xl > .relative.px-6.py-6.shrink-0 > h2 {
+  padding-right: 3.5rem;
+}
